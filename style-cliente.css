@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ESTILOS: VISTA CLIENTE (MÓVIL / CELULAR)
+   ESTILOS: VISTA CLIENTE CON DIBUJO DE TELÉFONO MÓVIL
    Reglas: Grid exterior, Flexbox interior, px y %, colores directos sin variables
    ========================================================================== */
 
@@ -11,37 +11,181 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background-color: #0d1017;
+  background-color: #07090e;
   color: #e2e8f0;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 16px;
+  padding: 30px 16px;
   -webkit-font-smoothing: antialiased;
 }
 
-/* LAYOUT GENERAL DE LA APP: CSS GRID */
-.app-layout {
+/* CONTENEDOR ENVOLVENTE DEL SIMULADOR (FLEXBOX) */
+.simulator-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
   width: 100%;
-  max-width: 420px;
-  background-color: #141824;
-  border: 1px solid #252d40;
-  border-radius: 24px;
-  padding: 20px;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
-  display: grid;
-  grid-template-rows: auto auto 1fr;
-  row-gap: 20px;
 }
 
-/* CABECERA (FLEXBOX) */
+.simulator-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #121622;
+  border: 1px solid #1f273b;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.label-dot {
+  width: 7px;
+  height: 7px;
+  background-color: #38bdf8;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #38bdf8;
+}
+
+/* ==========================================================================
+   CHASIS FÍSICO DEL TELÉFONO INTELIGENTE
+   ========================================================================== */
+.phone-chassis {
+  width: 100%;
+  max-width: 410px;
+  background-color: #181d28;
+  border: 12px solid #202738;
+  border-radius: 48px;
+  box-shadow: 0 0 0 2px #333f5c, 0 25px 60px rgba(0, 0, 0, 0.7);
+  position: relative;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+/* BOTONES FÍSICOS DE HARDWARE EN LOS LATERALES */
+.phone-btn-volume-up,
+.phone-btn-volume-down,
+.phone-btn-power {
+  position: absolute;
+  background-color: #2b354d;
+  border-radius: 3px;
+}
+
+.phone-btn-volume-up {
+  left: -16px;
+  top: 110px;
+  width: 4px;
+  height: 48px;
+}
+
+.phone-btn-volume-down {
+  left: -16px;
+  top: 170px;
+  width: 4px;
+  height: 48px;
+}
+
+.phone-btn-power {
+  right: -16px;
+  top: 130px;
+  width: 4px;
+  height: 64px;
+}
+
+/* PANTALLA INTERNA DEL TELÉFONO */
+.phone-screen {
+  background-color: #141824;
+  border-radius: 36px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 700px;
+}
+
+/* ==========================================================================
+   ISLA DINÁMICA Y BARRA DE ESTADO SUPERIOR DEL CELULAR
+   ========================================================================== */
+.phone-status-bar {
+  background-color: #141824;
+  padding: 12px 20px 8px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.status-clock {
+  font-size: 13px;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  width: 45px;
+}
+
+.dynamic-island {
+  width: 108px;
+  height: 24px;
+  background-color: #07090e;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  gap: 8px;
+  margin: 0 auto;
+}
+
+.island-camera {
+  width: 9px;
+  height: 9px;
+  background-color: #101626;
+  border: 1px solid #1f273b;
+  border-radius: 50%;
+}
+
+.island-sensor {
+  width: 5px;
+  height: 5px;
+  background-color: #0c0f17;
+  border-radius: 50%;
+}
+
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #ffffff;
+  width: 45px;
+  justify-content: flex-end;
+}
+
+/* ==========================================================================
+   CONTENIDO DE LA APP: CSS GRID (3 FILAS)
+   ========================================================================== */
+.app-layout {
+  padding: 14px 20px;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  row-gap: 18px;
+  flex: 1;
+}
+
+/* CABECERA DE LA APP (FLEXBOX) */
 .app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #1f273b;
-  padding-bottom: 14px;
+  padding-bottom: 12px;
 }
 
 .brand-row {
@@ -51,8 +195,8 @@ body {
 }
 
 .brand-icon {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   background-color: #2563eb;
   border-radius: 8px;
   display: flex;
@@ -60,7 +204,7 @@ body {
   justify-content: center;
   color: #ffffff;
   font-weight: 900;
-  font-size: 14px;
+  font-size: 13px;
   box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
 }
 
@@ -70,7 +214,7 @@ body {
 }
 
 .brand-title {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 800;
   color: #ffffff;
   line-height: 1.2;
@@ -97,37 +241,37 @@ body {
 .dispenser-section {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .section-title-group {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 
 .section-title {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 800;
   color: #ffffff;
 }
 
 .section-subtitle {
-  font-size: 12px;
+  font-size: 11px;
   color: #94a3b8;
 }
 
 .buttons-stack {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 /* BOTONES TÁCTILES */
 .btn-touch {
   border: 1px solid transparent;
   border-radius: 14px;
-  padding: 16px 18px;
+  padding: 14px 16px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -145,7 +289,7 @@ body {
   background-color: #271f14;
   border-color: #644917;
   color: #fef08a;
-  box-shadow: 0 6px 16px rgba(180, 83, 9, 0.2);
+  box-shadow: 0 4px 12px rgba(180, 83, 9, 0.2);
 }
 
 .btn-priority:hover {
@@ -157,7 +301,7 @@ body {
   background-color: #17233d;
   border-color: #233861;
   color: #bae6fd;
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.15);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
 }
 
 .btn-general:hover {
@@ -168,12 +312,12 @@ body {
 .btn-touch-info {
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  padding-right: 12px;
+  gap: 2px;
+  padding-right: 10px;
 }
 
 .btn-touch-title {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.3px;
 }
@@ -181,13 +325,13 @@ body {
 .btn-touch-desc {
   font-size: 11px;
   opacity: 0.85;
-  line-height: 1.3;
+  line-height: 1.25;
 }
 
 .btn-touch-badge {
   font-size: 11px;
   font-weight: 800;
-  padding: 6px 10px;
+  padding: 5px 8px;
   border-radius: 8px;
   flex-shrink: 0;
 }
@@ -202,23 +346,25 @@ body {
   color: #082f49;
 }
 
-/* SECCIÓN TICKET EMITIDO */
+/* ==========================================================================
+   SECCIÓN TICKET EMITIDO (RECIBO DIGITAL CON MUESCAS)
+   ========================================================================== */
 .ticket-section {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .ticket-card {
   background-color: #f8fafc;
   color: #0f172a;
-  border-radius: 18px;
-  padding: 20px;
+  border-radius: 16px;
+  padding: 16px 18px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 250px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+  min-height: 230px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   position: relative;
   animation: ticket-appear 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -226,7 +372,7 @@ body {
 @keyframes ticket-appear {
   0% {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(14px);
   }
   100% {
     opacity: 1;
@@ -234,28 +380,28 @@ body {
   }
 }
 
-/* MUESCAS DE TICKET FÍSICO */
+/* MUESCAS FÍSICAS DE CORTE */
 .ticket-card::before,
 .ticket-card::after {
   content: "";
   position: absolute;
   top: 50%;
   width: 14px;
-  height: 24px;
+  height: 22px;
   background-color: #141824;
-  margin-top: -12px;
+  margin-top: -11px;
 }
 
 .ticket-card::before {
   left: -1px;
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-top-right-radius: 11px;
+  border-bottom-right-radius: 11px;
 }
 
 .ticket-card::after {
   right: -1px;
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
+  border-top-left-radius: 11px;
+  border-bottom-left-radius: 11px;
 }
 
 .ticket-header {
@@ -263,7 +409,7 @@ body {
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px dashed #cbd5e1;
-  padding-bottom: 10px;
+  padding-bottom: 8px;
 }
 
 .ticket-entity {
@@ -277,9 +423,9 @@ body {
   font-size: 10px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 4px 10px;
-  border-radius: 20px;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: 14px;
 }
 
 .ticket-body {
@@ -287,12 +433,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 12px 0;
+  gap: 4px;
+  padding: 10px 0;
 }
 
 .ticket-code-label {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 800;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -300,7 +446,7 @@ body {
 }
 
 .ticket-number {
-  font-size: 58px;
+  font-size: 52px;
   font-weight: 900;
   line-height: 1;
   letter-spacing: 2px;
@@ -308,17 +454,17 @@ body {
 }
 
 .ticket-message {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: #475569;
 }
 
 .ticket-footer {
   border-top: 1px dashed #cbd5e1;
-  padding-top: 10px;
+  padding-top: 8px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .ticket-meta-row {
@@ -345,7 +491,7 @@ body {
 }
 
 .ticket-barcode {
-  height: 18px;
+  height: 16px;
   background: repeating-linear-gradient(
     90deg,
     #0f172a 0px,
@@ -363,8 +509,8 @@ body {
   background-color: transparent;
   border: 1px solid #2d374d;
   color: #94a3b8;
-  padding: 10px 16px;
-  border-radius: 10px;
+  padding: 8px 14px;
+  border-radius: 8px;
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
@@ -377,18 +523,57 @@ body {
   border-color: #475569;
 }
 
-/* RESPONSIVE MEDIA QUERIES */
+/* ==========================================================================
+   BARRA DE GESTOS INFERIOR DEL TELÉFONO
+   ========================================================================== */
+.phone-home-bar {
+  padding: 12px 0 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #141824;
+}
+
+.home-indicator {
+  width: 130px;
+  height: 4px;
+  background-color: #475569;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   RESPONSIVE: EN PANTALLAS MÓVILES REALES SE ADAPTA AL DISPLAY
+   ========================================================================== */
 @media (max-width: 480px) {
   body {
     padding: 0;
     background-color: #141824;
   }
 
-  .app-layout {
+  .simulator-wrapper {
+    gap: 0;
+  }
+
+  .simulator-label {
+    display: none;
+  }
+
+  .phone-chassis {
     max-width: 100%;
     min-height: 100vh;
     border-radius: 0;
     border: none;
     box-shadow: none;
+  }
+
+  .phone-btn-volume-up,
+  .phone-btn-volume-down,
+  .phone-btn-power {
+    display: none;
+  }
+
+  .phone-screen {
+    border-radius: 0;
+    min-height: 100vh;
   }
 }

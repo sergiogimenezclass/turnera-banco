@@ -16,6 +16,7 @@ const btnGeneral = document.getElementById('btn-general');
 const btnPrioritario = document.getElementById('btn-prioritario');
 const btnNuevoTurno = document.getElementById('btn-nuevo-turno');
 const relojCliente = document.getElementById('reloj-cliente');
+const relojBarraEstado = document.getElementById('reloj-barra-estado');
 
 const ticketCard = document.getElementById('tarjeta-ticket');
 const ticketCategoria = document.getElementById('ticket-categoria');
@@ -29,7 +30,11 @@ function actualizarReloj() {
   const ahora = new Date();
   const horas = String(ahora.getHours()).padStart(2, '0');
   const minutos = String(ahora.getMinutes()).padStart(2, '0');
-  relojCliente.textContent = `${horas}:${minutos}`;
+  const horaFormateada = `${horas}:${minutos}`;
+  relojCliente.textContent = horaFormateada;
+  if (relojBarraEstado) {
+    relojBarraEstado.textContent = horaFormateada;
+  }
 }
 setInterval(actualizarReloj, 1000);
 actualizarReloj();
