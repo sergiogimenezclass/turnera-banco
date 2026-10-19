@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco Nacional - Solicitar Turno</title>
+  <link rel="stylesheet" href="style-cliente.css">
+</head>
+<body>
+
+  <!-- CONTENEDOR PRINCIPAL: CSS GRID -->
+  <main class="app-layout">
+
+    <!-- CABECERA DE LA APP MÓVIL -->
+    <header class="app-header">
+      <div class="brand-row">
+        <div class="brand-icon">BN</div>
+        <div class="brand-info">
+          <h1 class="brand-title">Banco Nacional</h1>
+          <span class="branch-tag">Sucursal Central 101</span>
+        </div>
+      </div>
+      <div class="header-clock" id="reloj-cliente">--:--</div>
+    </header>
+
+    <!-- SECCIÓN DE SELECCIÓN DE TURNO -->
+    <section class="dispenser-section">
+      <div class="section-title-group">
+        <h2 class="section-title">Sacá tu turno digital</h2>
+        <p class="section-subtitle">Elegí la categoría de atención que corresponda:</p>
+      </div>
+
+      <div class="buttons-stack">
+        <!-- BOTÓN PRIORITARIO -->
+        <button type="button" class="btn-touch btn-priority" id="btn-prioritario">
+          <div class="btn-touch-info">
+            <span class="btn-touch-title">Atención Prioritaria</span>
+            <span class="btn-touch-desc">Mayores de 65, embarazadas o movilidad reducida</span>
+          </div>
+          <span class="btn-touch-badge badge-p">P-XX</span>
+        </button>
+
+        <!-- BOTÓN GENERAL -->
+        <button type="button" class="btn-touch btn-general" id="btn-general">
+          <div class="btn-touch-info">
+            <span class="btn-touch-title">Atención General</span>
+            <span class="btn-touch-desc">Cajas, depósitos, pagos y trámites generales</span>
+          </div>
+          <span class="btn-touch-badge badge-g">G-XX</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE TICKET EMITIDO -->
+    <section class="ticket-section" id="seccion-ticket">
+      <div class="ticket-card" id="tarjeta-ticket">
+        <div class="ticket-header">
+          <span class="ticket-entity">BANCO NACIONAL S.A.</span>
+          <span class="ticket-category-pill" id="ticket-categoria">Prioritario</span>
+        </div>
+
+        <div class="ticket-body">
+          <span class="ticket-code-label">Tu Número de Turno</span>
+          <div class="ticket-number" id="ticket-numero">P-01</div>
+          <p class="ticket-message" id="ticket-mensaje">Aguardá tu llamado en las pantallas de la sala</p>
+        </div>
+
+        <div class="ticket-footer">
+          <div class="ticket-meta-row">
+            <span>Hora de emisión: <strong id="ticket-hora">--:--</strong></span>
+            <span>Estado: <strong class="status-waiting" id="ticket-estado">En Espera</strong></span>
+          </div>
+          <div class="ticket-barcode"></div>
+        </div>
+      </div>
+
+      <!-- BOTÓN PARA EMITIR UN NUEVO TURNO -->
+      <button type="button" class="btn-reset" id="btn-nuevo-turno">
+        Solicitar otro turno
+      </button>
+    </section>
+
+  </main>
+
+  <script src="cliente.js"></script>
+</body>
+</html>
