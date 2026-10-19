@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco Nacional - Terminal Operativa de Caja</title>
+  <link rel="stylesheet" href="style-operador.css">
+</head>
+<body>
+
+  <!-- CONTENEDOR PRINCIPAL: CSS GRID -->
+  <main class="console-layout">
+
+    <!-- BARRA SUPERIOR DE LA TERMINAL -->
+    <header class="console-header">
+      <div class="operator-profile">
+        <span class="operator-avatar">👤</span>
+        <div class="operator-details">
+          <span class="operator-name">Operador: <strong>Giménez, S.</strong></span>
+          <span class="operator-sub">Sucursal 101 &bull; Terminal de Caja</span>
+        </div>
+      </div>
+
+      <div class="desk-control">
+        <label for="select-caja" class="desk-label">Puesto Activo:</label>
+        <select id="select-caja" class="desk-select">
+          <option value="Caja 2">Caja 2</option>
+          <option value="Caja 1">Caja 1</option>
+          <option value="Box 3">Box 3</option>
+        </select>
+      </div>
+    </header>
+
+    <!-- MATRIZ DE TELEMETRÍA DE COLAS EN ESPERA -->
+    <section class="telemetry-section">
+      <!-- COLA PRIORITARIA -->
+      <div class="telemetry-card card-priority">
+        <div class="telemetry-head">
+          <span class="telemetry-badge badge-p">Prioridad</span>
+          <span class="telemetry-title">Cola Prioritaria [P]</span>
+        </div>
+        <div class="telemetry-value" id="contador-prioritario">0</div>
+        <span class="telemetry-caption">Adultos mayores / Mov. reducida</span>
+      </div>
+
+      <!-- COLA GENERAL -->
+      <div class="telemetry-card card-general">
+        <div class="telemetry-head">
+          <span class="telemetry-badge badge-g">General</span>
+          <span class="telemetry-title">Cola General [G]</span>
+        </div>
+        <div class="telemetry-value" id="contador-general">0</div>
+        <span class="telemetry-caption">Trámites y servicios habituales</span>
+      </div>
+    </section>
+
+    <!-- ÁREA DE TURNO EN ATENCIÓN ACTUAL -->
+    <section class="serving-section">
+      <div class="serving-card">
+        <div class="serving-indicator">
+          <span class="indicator-led"></span>
+          <span class="indicator-text">En Atención Ahora &bull; <span id="serving-caja-label">Caja 2</span></span>
+        </div>
+
+        <div class="serving-number" id="turno-actual-numero">--</div>
+        <div class="serving-meta" id="turno-actual-meta">Sin turno activo en este puesto</div>
+      </div>
+
+      <div class="call-action-group">
+        <button type="button" class="btn-dispatch" id="btn-llamar">
+          <span class="btn-dispatch-icon">📢</span>
+          <span class="btn-dispatch-label">Llamar Siguiente Turno</span>
+        </button>
+
+        <p class="dispatch-rule-hint">
+          Regla operativa: Los turnos <strong>[P]</strong> se atienden estrictamente antes que los <strong>[G]</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- HISTORIAL RECIENTE DEL OPERADOR -->
+    <footer class="console-footer">
+      <span class="footer-title">Último turno despachado:</span>
+      <span class="footer-value" id="ultimo-despachado">Ninguno todavía</span>
+    </footer>
+
+  </main>
+
+  <script src="operador.js"></script>
+</body>
+</html>
