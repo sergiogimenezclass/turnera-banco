@@ -36,13 +36,13 @@
         <!-- INSTRUCCIONES DE PANTALLA -->
         <header class="touch-screen-header">
           <h1 class="touch-screen-title">Bienvenido</h1>
-          <p class="touch-screen-subtitle">Toque la pantalla para solicitar su número de atención:</p>
+          <p class="touch-screen-subtitle">Toque la pantalla para solicitar su turno de atención:</p>
         </header>
 
         <!-- BOTONES TÁCTILES DEL DISPENSADOR (FLEXBOX) -->
         <section class="touch-buttons-stack">
 
-          <!-- BOTÓN PRIORITARIO -->
+          <!-- 1. BOTÓN DESTACADO DE PRIORIDAD -->
           <button type="button" class="kiosk-btn btn-priority" id="btn-prioritario">
             <div class="kiosk-btn-left">
               <span class="kiosk-btn-icon">⭐</span>
@@ -54,23 +54,47 @@
             <span class="kiosk-btn-code">P-XX</span>
           </button>
 
-          <!-- BOTÓN GENERAL -->
-          <button type="button" class="kiosk-btn btn-general" id="btn-general">
+          <!-- 2. SERVICIO GENERAL: OPERACIONES POR CAJA -->
+          <button type="button" class="kiosk-btn btn-service btn-caja" id="btn-caja">
             <div class="kiosk-btn-left">
-              <span class="kiosk-btn-icon">👤</span>
+              <span class="kiosk-btn-icon">💵</span>
               <div class="kiosk-btn-text">
-                <span class="kiosk-btn-title">Atención General</span>
-                <span class="kiosk-btn-desc">Operaciones por caja, depósitos y trámites generales</span>
+                <span class="kiosk-btn-title">Operaciones por Caja</span>
+                <span class="kiosk-btn-desc">Depósitos, cobros de cheques, pagos y moneda extranjera</span>
               </div>
             </div>
-            <span class="kiosk-btn-code">G-XX</span>
+            <span class="kiosk-btn-code">C-XX</span>
+          </button>
+
+          <!-- 3. SERVICIO GENERAL: TARJETAS Y CUENTAS -->
+          <button type="button" class="kiosk-btn btn-service btn-tarjetas" id="btn-tarjetas">
+            <div class="kiosk-btn-left">
+              <span class="kiosk-btn-icon">💳</span>
+              <div class="kiosk-btn-text">
+                <span class="kiosk-btn-title">Tarjetas y Cuentas</span>
+                <span class="kiosk-btn-desc">Límites, reposiciones de plásticos y apertura de cuentas</span>
+              </div>
+            </div>
+            <span class="kiosk-btn-code">T-XX</span>
+          </button>
+
+          <!-- 4. SERVICIO GENERAL: ASESORÍA Y CRÉDITOS -->
+          <button type="button" class="kiosk-btn btn-service btn-creditos" id="btn-creditos">
+            <div class="kiosk-btn-left">
+              <span class="kiosk-btn-icon">💼</span>
+              <div class="kiosk-btn-text">
+                <span class="kiosk-btn-title">Asesoría y Créditos</span>
+                <span class="kiosk-btn-desc">Préstamos personales, inversiones, plazos fijos y seguros</span>
+              </div>
+            </div>
+            <span class="kiosk-btn-code">A-XX</span>
           </button>
 
         </section>
 
         <!-- PIE DE PANTALLA TÁCTIL -->
         <footer class="touch-screen-footer">
-          <span>El sistema atiende en primer lugar las solicitudes prioritarias.</span>
+          <span>El sistema aplica prioridad estricta para adultos mayores y personas vulnerables.</span>
         </footer>
 
       </main>
@@ -88,14 +112,13 @@
 
           <!-- TICKET TÉRMICO FÍSICO QUE SALE DE LA RANURA -->
           <article class="printed-ticket" id="ticket-impreso">
-            <div class="ticket-cut-edge"></div>
-            
             <div class="ticket-header">
               <span class="ticket-bank-name">BANCO NACIONAL S.A.</span>
-              <span class="ticket-badge" id="ticket-categoria">Prioritario</span>
+              <span class="ticket-badge badge-p" id="ticket-categoria">Prioritario</span>
             </div>
 
             <div class="ticket-body">
+              <span class="ticket-service-name" id="ticket-servicio">Atención Prioritaria</span>
               <span class="ticket-label">SU NÚMERO DE TURNO</span>
               <div class="ticket-code" id="ticket-numero">P-01</div>
               <p class="ticket-instructions" id="ticket-mensaje">Aguarde su llamado en la pantalla de la sala</p>
