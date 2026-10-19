@@ -14,17 +14,28 @@ El trabajo se realiza con **baby steps**: una funcionalidad pequeña y concreta 
 
 ## Las tres vistas del proyecto
 
-```text
-┌────────────────────────────────────────────────────────────────────────┐
-│ Vista 1: cliente.html  → App móvil del cliente (vista celular 9:16)    │
-│                          Solicita turno (General/Prioritario) y ticket │
-├────────────────────────────────────────────────────────────────────────┤
-│ Vista 2: operador.html → Panel de caja / puesto de atención             │
-│                          Selecciona puesto, ve colas y llama siguiente │
-├────────────────────────────────────────────────────────────────────────┤
-│ Vista 3: tv.html       → Pantalla de pared (formato TV 16:9)           │
-│                          Turno actual gigante, caja, historial y voz   │
-└────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart LR
+    subgraph V1["Vista 1: Cliente (cliente.html)"]
+        direction TB
+        C1["Formato: Celular (9:16)"]
+        C2["Solicita Turno (General / Prioritario)"]
+        C3["Visualiza Ticket Digital"]
+    end
+
+    subgraph V2["Vista 2: Operador (operador.html)"]
+        direction TB
+        O1["Formato: Panel de Caja / Escritorio"]
+        O2["Selecciona Puesto de Atencion"]
+        O3["Monitorea Colas y Despacha con Prioridad"]
+    end
+
+    subgraph V3["Vista 3: TV (tv.html)"]
+        direction TB
+        T1["Formato: Pantalla de Sala (16:9)"]
+        T2["Hero: Turno Gigante y Destino"]
+        T3["Historial de Llamados y Locucion por Voz"]
+    end
 ```
 
 La comunicación entre las tres pestañas se realiza en tiempo real y sin necesidad de un backend ni dependencias externas, aprovechando la API nativa **`BroadcastChannel`** del navegador.
@@ -69,15 +80,23 @@ Ubicá las ventanas en pantalla para observar el flujo completo en vivo: el clie
 
 ## Flujo del sistema
 
-```text
-  [ Cliente (Móvil) ] ──(NUEVO_TURNO)──> [ Canal Broadcast ]
-                                                 │
-                                                 ▼
-                                        [ Operador (Caja) ]
-                                                 │
-                                            (shift cola)
-                                                 │
-  [ Pantalla TV (Voz + Hero) ] <──(TURNO_LLAMADO)┘
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Cliente as Cliente (Móvil)
+    participant Canal as BroadcastChannel ('canal_turnero')
+    actor Operador as Operador (Caja)
+    participant TV as Pantalla TV (Sala)
+
+    Note over Cliente: Selecciona Tipo (General / Prioritario)
+    Cliente->>Canal: postMessage({ accion: 'NUEVO_TURNO', turno })
+    Canal->>Operador: onmessage (actualiza colas en espera)
+
+    Note over Operador: Presiona "Llamar Siguiente" (aplica prioridad)
+    Operador->>Canal: postMessage({ accion: 'TURNO_LLAMADO', numero, tipo, caja })
+    Canal->>TV: onmessage (renderiza Hero + Historial)
+    Note over TV: window.speechSynthesis (vocaliza llamado)
+    Canal->>Cliente: onmessage (notifica si su ticket fue llamado)
 ```
 
 1. **El cliente** elige *"Turno General"* o *"Turno Prioritario"*. Su app le confirma su número (ej. `P-01`) y emite el evento al canal.
