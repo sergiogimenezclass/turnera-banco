@@ -20,10 +20,6 @@
           <span class="system-subtitle">Sistema de Turnos Inteligente con Prioridad</span>
         </div>
       </div>
-      <div class="status-chip">
-        <span class="status-dot"></span>
-        <span class="status-name">Sincronización Nativa Activa</span>
-      </div>
     </header>
 
     <!-- INTRODUCCIÓN Y CONTEXTO DEL PROYECTO -->
@@ -91,39 +87,21 @@
 
     </section>
 
-    <!-- BARRA DE ACCIÓN RÁPIDA: DEMO EN VIVO Y PESTAÑAS INDEPENDIENTES -->
+    <!-- BARRA DE ACCESO A LA DEMO INTEGRADA EN VIVO -->
     <section class="launch-strip">
       <div class="launch-info">
-        <h4 class="launch-title">¿Querés probar la experiencia integrada o por separado?</h4>
-        <p class="launch-subtitle">Podés ver el simulador automático en una sola pantalla con iluminación perimetral o abrir las 3 pestañas independientes.</p>
+        <h4 class="launch-title">¿Querés ver el sistema funcionando en simultáneo?</h4>
+        <p class="launch-subtitle">Accedé al simulador interactivo con las tres pantallas en una sola vista, relato paso a paso e iluminación perimetral de foco activo.</p>
       </div>
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+      <div>
         <a href="demo.html" target="_blank" rel="noopener noreferrer" class="btn-launch-all" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
           <span>🎮</span>
-          <span>Ver Demo en Vivo (Iframes con Foco)</span>
+          <span>Ver Demostración en Vivo</span>
         </a>
-        <button type="button" class="btn-launch-all" id="btn-abrir-todo" style="background-color: #ffffff; color: #1e293b; border-color: #cbd5e1;">
-          <span>🚀</span>
-          <span>Abrir 3 Pestañas Separadas</span>
-        </button>
       </div>
     </section>
 
-    <!-- PIE INSTITUCIONAL -->
-    <footer class="portal-footer">
-      <span>Banco Nacional &bull; Arquitectura Vanilla JS con BroadcastChannel y SpeechSynthesis</span>
-      <span class="footer-copy">Práctica Interactiva de UX / UI</span>
-    </footer>
-
   </main>
 
-  <script>
-    // Lógica para abrir las 3 pantallas en pestañas separadas con un solo clic
-    document.getElementById('btn-abrir-todo').addEventListener('click', () => {
-      window.open('totem.html', '_blank');
-      window.open('operador.html', '_blank');
-      window.open('tv.html', '_blank');
-    });
-  </script>
 </body>
 </html>
