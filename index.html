@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco Nacional - Sistema de Turnos Inteligente</title>
+  <link rel="stylesheet" href="style-index.css">
+</head>
+<body>
+
+  <!-- CONTENEDOR PRINCIPAL: CSS GRID -->
+  <main class="portal-layout">
+
+    <!-- CABECERA INSTITUCIONAL (FLEXBOX) -->
+    <header class="portal-header">
+      <div class="brand-badge">
+        <div class="brand-logo">BN</div>
+        <div class="brand-text">
+          <h1 class="brand-name">Banco Nacional</h1>
+          <span class="system-subtitle">Sistema de Turnos Inteligente con Prioridad</span>
+        </div>
+      </div>
+      <div class="status-chip">
+        <span class="status-dot"></span>
+        <span class="status-name">Sincronización Nativa Activa</span>
+      </div>
+    </header>
+
+    <!-- INTRODUCCIÓN Y CONTEXTO DEL PROYECTO -->
+    <section class="intro-section">
+      <h2 class="intro-title">Plataforma de Atención al Público en Tiempo Real</h2>
+      <p class="intro-description">
+        Este proyecto simula el ciclo integral de atención bancaria y gestión de prioridades (adultos mayores, embarazadas y personas con movilidad reducida).
+        Funciona mediante <strong>tres pantallas sincronizadas instantáneamente</strong> sin requerir servidores externos, utilizando la API nativa <code>BroadcastChannel</code> del navegador.
+      </p>
+    </section>
+
+    <!-- MATRIZ DE ACCESOS A LAS 3 VISTAS: CSS GRID -->
+    <section class="cards-grid">
+
+      <!-- TARJETA 1: CLIENTE (CELULAR) -->
+      <article class="view-card card-client">
+        <div class="card-top">
+          <span class="view-tag tag-client">01 &bull; Celular (9:16)</span>
+          <span class="tech-tag">Móvil Táctil</span>
+        </div>
+        <div class="card-icon">📱</div>
+        <h3 class="card-title">App Móvil del Cliente</h3>
+        <p class="card-description">
+          Simulador de teléfono donde el usuario emite su turno (General o Prioritario), recibe su ticket digital y se le notifica en pantalla cuando es llamado a la caja.
+        </p>
+        <a href="cliente.html" target="_blank" rel="noopener noreferrer" class="card-btn btn-client">
+          <span>Abrir App Cliente</span>
+          <span class="btn-arrow">&rarr;</span>
+        </a>
+      </article>
+
+      <!-- TARJETA 2: OPERADOR (CAJA) -->
+      <article class="view-card card-operator">
+        <div class="card-top">
+          <span class="view-tag tag-operator">02 &bull; Escritorio</span>
+          <span class="tech-tag">Terminal Caja</span>
+        </div>
+        <div class="card-icon">🖥️</div>
+        <h3 class="card-title">Terminal del Operador</h3>
+        <p class="card-description">
+          Consola del cajero con selección de puesto (Caja 1, 2, Box 3), visualización de colas en espera y botón de llamado con criterio de prioridad estricta.
+        </p>
+        <a href="operador.html" target="_blank" rel="noopener noreferrer" class="card-btn btn-operator">
+          <span>Abrir Terminal Operador</span>
+          <span class="btn-arrow">&rarr;</span>
+        </a>
+      </article>
+
+      <!-- TARJETA 3: TV (SALA DE ESPERA) -->
+      <article class="view-card card-tv">
+        <div class="card-top">
+          <span class="view-tag tag-tv">03 &bull; Pantalla 16:9</span>
+          <span class="tech-tag">Señalética TV</span>
+        </div>
+        <div class="card-icon">📺</div>
+        <h3 class="card-title">Pantalla de Sala de Espera</h3>
+        <p class="card-description">
+          Monitor de pared para visión a 5 metros: turno gigante convocado, puesto asignado, distintivo de prioridad, historial de últimos llamados y locución por voz.
+        </p>
+        <a href="tv.html" target="_blank" rel="noopener noreferrer" class="card-btn btn-tv">
+          <span>Abrir Pantalla TV</span>
+          <span class="btn-arrow">&rarr;</span>
+        </a>
+      </article>
+
+    </section>
+
+    <!-- BARRA DE ACCIÓN RÁPIDA: ABRIR LAS TRES PANTALLAS SIMULTÁNEAMENTE -->
+    <section class="launch-strip">
+      <div class="launch-info">
+        <h4 class="launch-title">¿Querés probar la experiencia completa?</h4>
+        <p class="launch-subtitle">Abrí las 3 interfaces en simultáneo en pestañas independientes para ver la sincronización en vivo.</p>
+      </div>
+      <button type="button" class="btn-launch-all" id="btn-abrir-todo">
+        🚀 Abrir las 3 Vistas en Pestañas Nuevas
+      </button>
+    </section>
+
+    <!-- PIE INSTITUCIONAL -->
+    <footer class="portal-footer">
+      <span>Banco Nacional &bull; Arquitectura Vanilla JS con BroadcastChannel y SpeechSynthesis</span>
+      <span class="footer-copy">Práctica Interactiva de UX / UI</span>
+    </footer>
+
+  </main>
+
+  <script>
+    // Lógica para abrir las 3 pantallas en pestañas separadas con un solo clic
+    document.getElementById('btn-abrir-todo').addEventListener('click', () => {
+      window.open('cliente.html', '_blank');
+      window.open('operador.html', '_blank');
+      window.open('tv.html', '_blank');
+    });
+  </script>
+</body>
+</html>

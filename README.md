@@ -46,6 +46,8 @@ La comunicación entre las tres pestañas se realiza en tiempo real y sin necesi
 
 ```text
 turnera-bancos/
+├── index.html         -> Portada institucional y lanzador de las 3 vistas
+├── style-index.css    -> Estilos de la portada principal
 ├── cliente.html       -> App móvil del usuario para solicitar turno (vista celular)
 ├── operador.html      -> Panel del empleado para despachar turnos
 ├── tv.html            -> Pantalla de sala de espera (vista TV 16:9)
@@ -69,12 +71,15 @@ Iniciá un servidor local desde la carpeta del proyecto:
 python3 -m http.server 8000
 ```
 
-Luego abrí tres pestañas/ventanas en tu navegador:
-1. **Cliente (Celular):** `http://localhost:8000/cliente.html` *(podés abrir las DevTools en modo simulación de dispositivo móvil)*.
-2. **Operador (Caja):** `http://localhost:8000/operador.html`.
-3. **Pantalla TV:** `http://localhost:8000/tv.html`.
+Luego visitá en tu navegador:
+* **Portada Principal:** `http://localhost:8000/` (o `index.html`)
 
-Ubicá las ventanas en pantalla para observar el flujo completo en vivo: el cliente pide un turno, el operador lo visualiza en su lista y lo llama, y la TV lo convoca con imagen y voz.
+Desde la portada podés:
+1. Abrir cada vista en una pestaña nueva con su respectivo botón:
+   - **Cliente (Celular):** `cliente.html` *(podés abrir las DevTools en modo simulación de dispositivo móvil)*.
+   - **Operador (Caja):** `operador.html`.
+   - **Pantalla TV:** `tv.html`.
+2. O pulsar **"Abrir las 3 Vistas en Pestañas Nuevas"** para lanzarlas todas juntas con un solo clic.
 
 ---
 
