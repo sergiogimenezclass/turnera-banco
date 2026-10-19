@@ -132,61 +132,58 @@ Antes de cada paso, compartí el código de los archivos involucrados para que l
 
 ```text
 Actuá como desarrollador frontend trabajando con JavaScript Vanilla.
-Tengo el archivo totem.html maquetado con la estructura de un tótem bancario físico (pantalla táctil y ranura dispensadora) y su archivo totem.js.
+Tengo el archivo totem.html maquetado con la estructura de un tótem bancario físico (pantalla táctil y ranura dispensadora) y su script totem.js.
 
-Necesito programar la lógica del tótem para dispensar un turno:
-1. Mantener dos contadores independientes autoincrementales en memoria: uno para turnos generales (inicia en 1) y otro para prioritarios (inicia en 1).
-2. Al pulsar el botón #btn-general:
-   - Generar el código "G-01", "G-02", etc. (con dos dígitos).
-   - Crear un objeto con el turno: { numero: "G-01", tipo: "General", fecha: new Date().toLocaleDateString(), hora: new Date().toTimeString().substring(0, 5) }.
-   - Renderizar el ticket térmico impreso (#ticket-impreso) que emerge de la ranura dispensadora con el número asignado, fecha, hora y código de barras.
-3. Al pulsar el botón #btn-prioritario:
-   - Generar el código "P-01", "P-02", etc.
-   - Crear el objeto correspondiente con tipo "Prioritario" y mostrar el ticket con su badge distintivo de prioridad.
-4. Conectar con un canal de BroadcastChannel llamado 'canal_turnero' y enviar un mensaje cada vez que se genera un turno:
-   canal.postMessage({ accion: 'NUEVO_TURNO', turno });
-5. Programar el botón #btn-nuevo-ticket para simular que el cliente retiró el ticket impreso de la boca del dispensador.
+Necesito programar la lógica del tótem para dispensar turnos en 4 categorías:
+1. Mantener 4 contadores independientes autoincrementales en memoria:
+   - contadorPrioritario (prefijo 'P')
+   - contadorCaja (prefijo 'C')
+   - contadorTarjetas (prefijo 'T')
+   - contadorCreditos (prefijo 'A')
+2. Al pulsar cada botón del tótem (#btn-prioritario, #btn-caja, #btn-tarjetas, #btn-creditos):
+   - Generar el código correlativo de dos dígitos (ej. "P-01", "C-01", "T-01", "A-01").
+   - Crear un objeto turno: { numero, tipo, servicio, prefijo, fecha, hora }.
+   - Renderizar el ticket térmico (#ticket-impreso) que emerge animadamente por la ranura con el número, el servicio, fecha, hora, badge y código de barras.
+   - Enviar el mensaje al canal nativo: canal.postMessage({ accion: 'NUEVO_TURNO', turno }).
+3. Programar el botón #btn-nuevo-ticket para simular que el cliente retiró el ticket impreso de la boca del dispensador.
 
 Escribí el código para totem.js con comentarios claros y directos.
 ```
 
 ### Comprobar
-- Al presionar cada botón en `totem.html`, el ticket físico desciende animadamente por la ranura con el código correlativo de dos dígitos.
-- En la consola del navegador se verifica el envío del mensaje por el `BroadcastChannel`.
+- Al presionar cualquiera de los 4 botones en `totem.html`, el ticket físico desciende animadamente por la ranura con el código y servicio correcto.
+- En la consola del navegador se verifica el envío del objeto al `BroadcastChannel`.
 
 ---
 
-## Prompt 2: Recepción de colas y llamado prioritario en el panel del operador (`operador.html` y `operador.js`)
+## Prompt 2: Telemetría de 4 colas y llamado prioritario en la terminal del operador (`operador.html` y `operador.js`)
 
 ```text
 Continuamos con la vista del empleado de atención en operador.html y su script operador.js.
 
 La interfaz del operador cuenta con:
-- Un selector #select-caja con opciones ("Caja 1", "Caja 2", "Box 3").
-- Un panel indicador de espera (#contador-general y #contador-prioritario).
-- Un botón principal #btn-llamar ("Llamar Siguiente").
-- Un área para mostrar el turno que el operador está atendiendo actualmente (#turno-actual).
+- Un selector #select-caja con opciones ("Caja 2", "Caja 1", "Box 1", "Box 2").
+- Cuatro contadores de telemetría (#contador-prioritario, #contador-caja, #contador-tarjetas, #contador-asesoria).
+- Un botón principal #btn-llamar ("Llamar Siguiente Turno").
+- Un área para mostrar el turno y servicio actualmente en atención (#turno-actual-numero, #turno-actual-servicio).
 
 Implementá la lógica en operador.js:
-1. Conectar al mismo 'canal_turnero' mediante BroadcastChannel.
-2. Mantener dos arrays en memoria: colaGeneral y colaPrioritaria.
-3. Al recibir un mensaje con accion === 'NUEVO_TURNO', agregar el turno a la cola correspondiente según su tipo y actualizar los contadores en pantalla.
+1. Conectar a 'canal_turnero' mediante BroadcastChannel.
+2. Mantener 4 arrays en memoria: colaPrioritaria, colaCaja, colaTarjetas y colaAsesoria.
+3. Al recibir un mensaje con accion === 'NUEVO_TURNO', clasificar el turno en la cola que corresponda y actualizar los contadores.
 4. Al hacer clic en #btn-llamar:
-   - Si ambas colas están vacías, mostrar un mensaje de aviso en pantalla indicando que no hay clientes en espera.
-   - Si hay turnos en colaPrioritaria, extraer el primero (shift()).
-   - Si colaPrioritaria está vacía pero hay en colaGeneral, extraer el primero de colaGeneral.
-   - Obtener la caja seleccionada en #select-caja.
-   - Actualizar el área #turno-actual en el panel del operador.
-   - Emitir al canal un mensaje con accion === 'TURNO_LLAMADO':
-     canal.postMessage({ accion: 'TURNO_LLAMADO', numero: turno.numero, tipo: turno.tipo, caja: cajaSeleccionada });
-   - Actualizar los contadores de espera.
+   - Regla 1 (Prioridad absoluta): Si hay turnos en colaPrioritaria, extraer siempre el primero (shift()).
+   - Regla 2 (Afinidad de puesto): Si no hay prioritarios, atender según el puesto seleccionado (Cajas atienden colaCaja, Box 1 atiende colaTarjetas, Box 2 atiende colaAsesoria). Si la cola propia está vacía, atender cualquier otra cola pendiente.
+   - Si todas las colas están vacías, mostrar un mensaje de aviso en pantalla indicando que no hay clientes en espera.
+   - Actualizar el área de atención y emitir al canal:
+     canal.postMessage({ accion: 'TURNO_LLAMADO', numero: turno.numero, tipo: turno.tipo, servicio: turno.servicio, caja: puestoSeleccionado, hora });
 
 Mantené el código modular, sin librerías externas y comentado.
 ```
 
 ### Comprobar
-- Cuando se emite un turno desde `cliente.html`, los contadores de `operador.html` aumentan automáticamente sin recargar.
-- Al pulsar "Llamar Siguiente", los turnos prioritarios se atienden siempre antes que los generales.
+- Al emitir turnos desde `totem.html`, los contadores de las 4 colas en `operador.html` suben en tiempo real.
+- Al pulsar "Llamar Siguiente", los turnos prioritarios `P` se atienden antes que cualquier otro servicio.
 - Al despachar, el evento `TURNO_LLAMADO` se publica en el `BroadcastChannel`.
 
 ---
@@ -200,10 +197,11 @@ Necesito implementar en tv.js la recepción de los llamados del operador y su vi
 1. Conectar a 'canal_turnero' mediante BroadcastChannel.
 2. Escuchar mensajes con accion === 'TURNO_LLAMADO'.
 3. Al recibir un llamado, actualizar la Zona Principal (Hero):
-   - Elemento #turno-numero: código del turno en tipografía gigante.
-   - Elemento #turno-caja: texto indicando destino (ej. "Dirigirse a Caja 2").
-   - Elemento #turno-tipo: badge o etiqueta destacada ("Atención Prioritaria" o "Atención General") asignando la clase CSS adecuada según el tipo.
-4. Mantener un array historialTurnos con un máximo de 4 turnos previos y renderizarlos en la Zona Secundaria (#historial-lista).
+   - Elemento #tv-numero: código del turno en tipografía gigante.
+   - Elemento #tv-servicio: nombre del servicio solicitado.
+   - Elemento #tv-destino: puesto asignado (ej. "Caja 2", "Box 1").
+   - Elemento #tv-categoria: badge destacado según si es prioritario o general.
+4. Mantener un array historialLlamados con un máximo de 4 turnos previos y renderizarlos en la Zona Secundaria (#tv-historial-lista) con distintivos de color según el prefijo.
 5. Agregar una clase CSS temporal 'animar-llamado' al contenedor hero para generar un efecto visual de pulso cada vez que entra un nuevo llamado.
 
 Escribí el código para tv.js y las reglas de animación en style-tv.css.
