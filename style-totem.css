@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ESTILOS: TÓTEM FÍSICO DE AUTOSERVICIO BANCARIO (4 SERVICIOS)
+   ESTILOS: TÓTEM FÍSICO DE AUTOSERVICIO BANCARIO - TEMA CLARO DE DÍA
    Reglas: Grid exterior, Flexbox interior, px y %, colores directos sin variables
    ========================================================================== */
 
@@ -11,8 +11,8 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background-color: #080a0f;
-  color: #e2e8f0;
+  background-color: #eef2f6;
+  color: #0f172a;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -34,15 +34,16 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: #121622;
-  border: 1px solid #1f273b;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
   padding: 6px 14px;
   border-radius: 20px;
   font-size: 11px;
   font-weight: 700;
-  color: #94a3b8;
+  color: #475569;
   text-transform: uppercase;
   letter-spacing: 1px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 .status-led {
@@ -54,15 +55,15 @@ body {
 }
 
 /* ==========================================================================
-   CHASIS DE COLUMNA DEL TÓTEM (HARDWARE METÁLICO)
+   CHASIS DE COLUMNA DEL TÓTEM (TITANIO / ACERO CLARO SATINADO)
    ========================================================================== */
 .totem-chassis {
   width: 100%;
   max-width: 500px;
-  background: linear-gradient(180deg, #1b212f 0%, #10141f 100%);
-  border: 4px solid #283347;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 4px solid #cbd5e1;
   border-radius: 28px;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12), inset 0 1px 0 #ffffff;
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -75,8 +76,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #0b0e16;
-  border: 1px solid #1c2333;
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
   border-radius: 16px;
   padding: 12px 16px;
 }
@@ -92,7 +93,7 @@ body {
   font-size: 15px;
   font-weight: 900;
   color: #ffffff;
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.3);
 }
 
 .totem-branch-info {
@@ -104,13 +105,13 @@ body {
   font-size: 13px;
   font-weight: 900;
   letter-spacing: 1.5px;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .totem-terminal-id {
   font-size: 10px;
   font-weight: 700;
-  color: #818cf8;
+  color: #2563eb;
   letter-spacing: 0.5px;
 }
 
@@ -118,22 +119,22 @@ body {
   font-family: monospace;
   font-size: 13px;
   font-weight: 700;
-  color: #64748b;
-  background-color: #121622;
+  color: #475569;
+  background-color: #ffffff;
   padding: 4px 8px;
   border-radius: 6px;
-  border: 1px solid #1e2638;
+  border: 1px solid #cbd5e1;
 }
 
 /* ==========================================================================
    PANTALLA TÁCTIL INTEGRADA (CSS GRID GENERAL)
    ========================================================================== */
 .touch-screen-display {
-  background-color: #0e121a;
-  border: 2px solid #232c3d;
+  background-color: #ffffff;
+  border: 2px solid #e2e8f0;
   border-radius: 20px;
   padding: 20px;
-  box-shadow: inset 0 4px 16px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
   display: grid;
   grid-template-rows: auto 1fr auto;
   row-gap: 16px;
@@ -149,13 +150,13 @@ body {
 .touch-screen-title {
   font-size: 20px;
   font-weight: 900;
-  color: #ffffff;
+  color: #0f172a;
   letter-spacing: 0.5px;
 }
 
 .touch-screen-subtitle {
   font-size: 12px;
-  color: #94a3b8;
+  color: #64748b;
 }
 
 /* BOTONES TÁCTILES DEL KIOSCO (FLEXBOX) */
@@ -182,56 +183,56 @@ body {
   transform: translateY(2px);
 }
 
-/* 1. PRIORIDAD: ÁMBAR CÁLIDO */
+/* 1. PRIORIDAD: ÁMBAR CÁLIDO LUMINOSO */
 .btn-priority {
-  background: linear-gradient(180deg, #2a2012 0%, #1e160a 100%);
-  border-color: #644917;
-  color: #fef08a;
-  box-shadow: 0 4px 14px rgba(180, 83, 9, 0.25);
+  background-color: #fffbeb;
+  border-color: #fde68a;
+  color: #78350f;
+  box-shadow: 0 2px 6px rgba(217, 119, 6, 0.08);
 }
 
 .btn-priority:hover {
-  background: linear-gradient(180deg, #382a16 0%, #291d0b 100%);
-  border-color: #ca8a04;
+  background-color: #fef3c7;
+  border-color: #f59e0b;
 }
 
-/* 2. CAJA: AZUL COBALTO */
+/* 2. CAJA: AZUL COBALTO CLARO */
 .btn-caja {
-  background: linear-gradient(180deg, #14233a 0%, #0d1726 100%);
-  border-color: #1e3a61;
-  color: #bae6fd;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2);
+  background-color: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1e3a8a;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.08);
 }
 
 .btn-caja:hover {
-  background: linear-gradient(180deg, #1c3052 0%, #122137 100%);
-  border-color: #38bdf8;
+  background-color: #dbeafe;
+  border-color: #2563eb;
 }
 
-/* 3. TARJETAS: ÍNDIGO / VIOLETA INSTITUCIONAL */
+/* 3. TARJETAS: VIOLETA CLARO */
 .btn-tarjetas {
-  background: linear-gradient(180deg, #201a38 0%, #141026 100%);
-  border-color: #3b2d66;
-  color: #ddd6fe;
-  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.2);
+  background-color: #f5f3ff;
+  border-color: #ddd6fe;
+  color: #4c1d95;
+  box-shadow: 0 2px 6px rgba(124, 58, 237, 0.08);
 }
 
 .btn-tarjetas:hover {
-  background: linear-gradient(180deg, #2b234c 0%, #1c1636 100%);
-  border-color: #a78bfa;
+  background-color: #ede9fe;
+  border-color: #7c3aed;
 }
 
-/* 4. CRÉDITOS / ASESORÍA: ESMERALDA / PETRÓLEO */
+/* 4. CRÉDITOS / ASESORÍA: ESMERALDA CLARO */
 .btn-creditos {
-  background: linear-gradient(180deg, #112620 0%, #0a1714 100%);
-  border-color: #1b453a;
-  color: #a7f3d0;
-  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.2);
+  background-color: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #064e3b;
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.08);
 }
 
 .btn-creditos:hover {
-  background: linear-gradient(180deg, #17362d 0%, #0e221d 100%);
-  border-color: #34d399;
+  background-color: #d1fae5;
+  border-color: #059669;
 }
 
 .kiosk-btn-left {
@@ -256,9 +257,14 @@ body {
   letter-spacing: 0.3px;
 }
 
+.btn-priority .kiosk-btn-title { color: #92400e; }
+.btn-caja .kiosk-btn-title { color: #1e40af; }
+.btn-tarjetas .kiosk-btn-title { color: #5b21b6; }
+.btn-creditos .kiosk-btn-title { color: #065f46; }
+
 .kiosk-btn-desc {
   font-size: 11px;
-  opacity: 0.85;
+  color: #475569;
   line-height: 1.25;
 }
 
@@ -272,29 +278,29 @@ body {
 
 .btn-priority .kiosk-btn-code {
   background-color: #f59e0b;
-  color: #451a03;
+  color: #ffffff;
 }
 
 .btn-caja .kiosk-btn-code {
-  background-color: #38bdf8;
-  color: #082f49;
+  background-color: #0284c7;
+  color: #ffffff;
 }
 
 .btn-tarjetas .kiosk-btn-code {
-  background-color: #a78bfa;
-  color: #2e1065;
+  background-color: #7c3aed;
+  color: #ffffff;
 }
 
 .btn-creditos .kiosk-btn-code {
-  background-color: #34d399;
-  color: #064e3b;
+  background-color: #059669;
+  color: #ffffff;
 }
 
 .touch-screen-footer {
   text-align: center;
   font-size: 11px;
   color: #64748b;
-  border-top: 1px solid #1c2333;
+  border-top: 1px solid #e2e8f0;
   padding-top: 10px;
 }
 
@@ -302,8 +308,8 @@ body {
    RANURA MECÁNICA DE DISPENSACIÓN DE TICKETS
    ========================================================================== */
 .dispenser-hardware-zone {
-  background-color: #0c0f17;
-  border: 1px solid #1e2638;
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e1;
   border-radius: 18px;
   padding: 16px;
   display: flex;
@@ -322,9 +328,9 @@ body {
 .dispenser-light {
   width: 6px;
   height: 6px;
-  background-color: #38bdf8;
+  background-color: #0284c7;
   border-radius: 50%;
-  box-shadow: 0 0 8px #38bdf8;
+  box-shadow: 0 0 6px #0284c7;
 }
 
 .dispenser-label {
@@ -332,7 +338,7 @@ body {
   font-weight: 800;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #94a3b8;
+  color: #475569;
 }
 
 .dispenser-slot {
@@ -346,10 +352,10 @@ body {
 .slot-opening {
   width: 85%;
   height: 10px;
-  background-color: #000000;
-  border: 2px solid #232c3d;
+  background-color: #1e293b;
+  border: 2px solid #94a3b8;
   border-radius: 4px;
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.9);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
   position: relative;
   z-index: 5;
 }
@@ -357,11 +363,11 @@ body {
 /* TICKET TÉRMICO FÍSICO QUE EMERGE DE LA BOCA MECÁNICA */
 .printed-ticket {
   width: 82%;
-  background-color: #faf9f5;
-  color: #1a1c22;
-  border: 1px solid #dcd7cb;
+  background-color: #ffffff;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
   border-top: none;
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.1);
   padding: 16px 18px;
   display: flex;
   flex-direction: column;
@@ -387,7 +393,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px dashed #7a766c;
+  border-bottom: 1px dashed #cbd5e1;
   padding-bottom: 6px;
 }
 
@@ -395,7 +401,7 @@ body {
   font-size: 11px;
   font-weight: 900;
   letter-spacing: 1px;
-  color: #000000;
+  color: #0f172a;
 }
 
 .ticket-badge {
@@ -441,8 +447,8 @@ body {
   font-weight: 800;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #4b4841;
-  background-color: #edebe4;
+  color: #334155;
+  background-color: #f1f5f9;
   padding: 2px 8px;
   border-radius: 4px;
 }
@@ -452,7 +458,7 @@ body {
   font-weight: 800;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #615d54;
+  color: #64748b;
   margin-top: 4px;
 }
 
@@ -461,17 +467,17 @@ body {
   font-weight: 900;
   line-height: 1;
   letter-spacing: 2px;
-  color: #000000;
+  color: #0f172a;
 }
 
 .ticket-instructions {
   font-size: 12px;
   font-weight: 600;
-  color: #4b4841;
+  color: #475569;
 }
 
 .ticket-footer {
-  border-top: 1px dashed #7a766c;
+  border-top: 1px dashed #cbd5e1;
   padding-top: 6px;
   display: flex;
   flex-direction: column;
@@ -483,7 +489,7 @@ body {
   justify-content: space-between;
   align-items: center;
   font-size: 11px;
-  color: #4b4841;
+  color: #475569;
   font-family: monospace;
 }
 
@@ -491,12 +497,12 @@ body {
   height: 16px;
   background: repeating-linear-gradient(
     90deg,
-    #000000 0px,
-    #000000 2px,
+    #0f172a 0px,
+    #0f172a 2px,
     transparent 2px,
     transparent 4px,
-    #000000 4px,
-    #000000 7px,
+    #0f172a 4px,
+    #0f172a 7px,
     transparent 7px,
     transparent 9px
   );
@@ -506,7 +512,7 @@ body {
 .ticket-farewell {
   font-size: 10px;
   text-align: center;
-  color: #7a766c;
+  color: #64748b;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -518,31 +524,31 @@ body {
 }
 
 .btn-clear-ticket {
-  background-color: transparent;
-  border: 1px solid #232c3d;
-  color: #94a3b8;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #475569;
   padding: 8px 16px;
   border-radius: 8px;
   font-size: 11px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .btn-clear-ticket:hover {
-  background-color: #1a2233;
-  color: #ffffff;
-  border-color: #3b82f6;
+  background-color: #f1f5f9;
+  color: #0f172a;
+  border-color: #94a3b8;
 }
 
 /* PEDESTAL BASE INFERIOR DEL TÓTEM */
 .totem-pedestal-base {
   width: 60%;
   height: 8px;
-  background-color: #0b0e16;
+  background-color: #94a3b8;
   border-radius: 4px;
   margin: 0 auto;
-  border: 1px solid #1f273b;
 }
 
 /* RESPONSIVE MEDIA QUERIES */

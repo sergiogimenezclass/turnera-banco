@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ESTILOS: VISTA PANTALLA TV (SALA DE ESPERA 16:9 - 4 SERVICIOS)
+   ESTILOS: VISTA PANTALLA TV (SALA DE ESPERA 16:9) - TEMA CLARO DE DÍA
    Reglas: Grid exterior, Flexbox interior, px y %, colores directos sin variables
    ========================================================================== */
 
@@ -11,13 +11,13 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background-color: #07090e;
-  color: #e2e8f0;
+  background-color: #e2e8f0;
+  color: #0f172a;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 24px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -35,14 +35,14 @@ body {
    ZONA PRINCIPAL (HERO)
    ========================================================================== */
 .tv-hero-stage {
-  background: radial-gradient(circle at top left, #162035 0%, #0c101a 75%);
-  border: 1px solid #232e47;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 2px solid #cbd5e1;
   border-radius: 24px;
-  padding: 30px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
   position: relative;
   overflow: hidden;
   transition: transform 0.3s ease, border-color 0.3s ease;
@@ -55,13 +55,13 @@ body {
 
 @keyframes pulso-llamado {
   0% {
-    border-color: #38bdf8;
-    box-shadow: 0 0 40px rgba(56, 189, 248, 0.5);
+    border-color: #0284c7;
+    box-shadow: 0 0 35px rgba(2, 132, 199, 0.35);
     transform: scale(1.015);
   }
   100% {
-    border-color: #232e47;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+    border-color: #cbd5e1;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
     transform: scale(1);
   }
 }
@@ -71,7 +71,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #1a2236;
+  border-bottom: 2px solid #e2e8f0;
   padding-bottom: 16px;
 }
 
@@ -82,8 +82,8 @@ body {
 }
 
 .hero-brand-icon {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   background-color: #2563eb;
   border-radius: 10px;
   display: flex;
@@ -92,14 +92,14 @@ body {
   color: #ffffff;
   font-weight: 900;
   font-size: 15px;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
 }
 
 .hero-brand-name {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 800;
   letter-spacing: 0.5px;
-  color: #cbd5e1;
+  color: #1e293b;
 }
 
 .hero-meta-right {
@@ -119,27 +119,29 @@ body {
 }
 
 .pill-priority {
-  background-color: #f59e0b;
-  color: #0f172a;
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
 }
 
 .pill-general {
-  background-color: #38bdf8;
-  color: #082f49;
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
 }
 
 .digital-clock {
   font-family: monospace;
   font-size: 15px;
   font-weight: 700;
-  color: #64748b;
-  background-color: #090c13;
+  color: #475569;
+  background-color: #f1f5f9;
   padding: 6px 12px;
   border-radius: 8px;
-  border: 1px solid #1a2236;
+  border: 1px solid #cbd5e1;
 }
 
-/* NÚMERO CENTRAL PROTAGONISTA (LECTURA A 5 METROS) */
+/* NÚMERO CENTRAL PROTAGONISTA (LECTURA A 5 METROS DE DISTANCIA) */
 .hero-center-group {
   text-align: center;
   display: flex;
@@ -160,34 +162,33 @@ body {
 }
 
 .hero-turn-number {
-  font-size: 108px;
+  font-size: 112px;
   font-weight: 900;
   line-height: 0.95;
   letter-spacing: 4px;
-  color: #ffffff;
-  text-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
+  color: #0f172a;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .hero-service-tag {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 800;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #7dd3fc;
-  background-color: #0b1424;
-  border: 1px solid #1f365c;
-  padding: 6px 18px;
-  border-radius: 20px;
-  margin-top: 14px;
+  color: #0369a1;
+  background-color: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 8px 24px;
+  border-radius: 24px;
+  margin-top: 16px;
 }
 
 /* DESTINO: CAJA O PUESTO ASIGNADO */
 .hero-destination-box {
-  background-color: #0a0d16;
-  border: 1px solid #1e2840;
-  border-radius: 16px;
-  padding: 18px 24px;
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 18px;
+  padding: 20px 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -202,22 +203,22 @@ body {
 .destination-sub {
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: #64748b;
 }
 
 .destination-target {
-  font-size: 32px;
+  font-size: 34px;
   font-weight: 900;
-  color: #38bdf8;
+  color: #0284c7;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .destination-arrow {
-  font-size: 36px;
-  color: #38bdf8;
+  font-size: 38px;
+  color: #0284c7;
   font-weight: 900;
 }
 
@@ -225,18 +226,18 @@ body {
    ZONA SECUNDARIA (HISTORIAL)
    ========================================================================== */
 .tv-history-rail {
-  background-color: #0b0e17;
-  border: 1px solid #192030;
+  background-color: #ffffff;
+  border: 2px solid #cbd5e1;
   border-radius: 24px;
   padding: 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
 }
 
 .rail-header {
-  border-bottom: 1px solid #192030;
+  border-bottom: 2px solid #e2e8f0;
   padding-bottom: 12px;
   display: flex;
   justify-content: space-between;
@@ -248,7 +249,7 @@ body {
   font-weight: 800;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #cbd5e1;
+  color: #0f172a;
 }
 
 .rail-subtitle {
@@ -266,14 +267,14 @@ body {
 
 .rail-empty-message {
   font-size: 12px;
-  color: #475569;
+  color: #94a3b8;
   text-align: center;
   margin: auto 0;
 }
 
 .rail-item {
-  background-color: #121622;
-  border: 1px solid #1f273b;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 14px;
   padding: 12px 16px;
   display: flex;
@@ -287,15 +288,15 @@ body {
 }
 
 .rail-item.item-caja {
-  border-left: 5px solid #38bdf8;
+  border-left: 5px solid #0284c7;
 }
 
 .rail-item.item-tarjetas {
-  border-left: 5px solid #a78bfa;
+  border-left: 5px solid #7c3aed;
 }
 
 .rail-item.item-asesoria {
-  border-left: 5px solid #34d399;
+  border-left: 5px solid #059669;
 }
 
 .rail-item-info {
@@ -307,29 +308,29 @@ body {
   font-size: 24px;
   font-weight: 900;
   font-family: monospace;
-  color: #ffffff;
+  color: #0f172a;
 }
 
 .rail-item.item-priority .rail-code {
-  color: #fbbf24;
+  color: #b45309;
 }
 
 .rail-item.item-caja .rail-code {
-  color: #7dd3fc;
+  color: #0369a1;
 }
 
 .rail-item.item-tarjetas .rail-code {
-  color: #c4b5fd;
+  color: #6d28d9;
 }
 
 .rail-item.item-asesoria .rail-code {
-  color: #6ee7b7;
+  color: #047857;
 }
 
 .rail-type-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
-  color: #8c9bb0;
+  color: #64748b;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -337,13 +338,13 @@ body {
 .rail-dest {
   font-size: 14px;
   font-weight: 800;
-  color: #cbd5e1;
+  color: #1e293b;
   text-transform: uppercase;
 }
 
 /* PIE DEL HISTORIAL (FLEXBOX) */
 .rail-footer {
-  border-top: 1px solid #192030;
+  border-top: 1px solid #e2e8f0;
   padding-top: 14px;
   display: flex;
   justify-content: space-between;
@@ -359,7 +360,7 @@ body {
 .audio-led {
   width: 8px;
   height: 8px;
-  background-color: #64748b;
+  background-color: #94a3b8;
   border-radius: 50%;
   transition: background-color 0.2s ease;
 }
@@ -376,10 +377,10 @@ body {
 }
 
 .btn-audio-toggle {
-  background-color: #1e2433;
-  border: 1px solid #2d3b55;
-  color: #93c5fd;
-  padding: 6px 12px;
+  background-color: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+  padding: 6px 14px;
   border-radius: 8px;
   font-size: 11px;
   font-weight: 700;
@@ -390,7 +391,7 @@ body {
 .btn-audio-toggle:hover {
   background-color: #2563eb;
   color: #ffffff;
-  border-color: #3b82f6;
+  border-color: #2563eb;
 }
 
 /* RESPONSIVE MEDIA QUERIES */
@@ -405,6 +406,6 @@ body {
   }
 
   .hero-turn-number {
-    font-size: 72px;
+    font-size: 76px;
   }
 }
