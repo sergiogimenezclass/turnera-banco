@@ -2,9 +2,9 @@
 
 En este proyecto vamos a construir un sistema interactivo de turnos bancarios con atención prioritaria, compuesto por **tres interfaces independientes sincronizadas en tiempo real**:
 
-1. **Pantalla de sala de espera (`tv.html`):** Formato TV horizontal (16:9) con tipografía gigante, caja asignada, distintivo de prioridad e historial.
+1. **Tótem de autoservicio bancario (`totem.html`):** Simulador de la columna física de ingreso a la sucursal, con pantalla táctil integrada y ranura dispensadora mecánica de donde emerge el ticket impreso.
 2. **Panel del operador (`operador.html`):** Interfaz para el cajero o representante bancario, donde elige su puesto/caja y despacha los turnos aplicando prioridad.
-3. **App móvil del cliente (`cliente.html`):** Simulador de celular (diseño vertical para pantalla táctil) donde la persona solicita su turno (General o Prioritario) y visualiza su ticket emitido.
+3. **Pantalla de sala de espera (`tv.html`):** Formato TV horizontal (16:9) con tipografía gigante, caja asignada, distintivo de prioridad, historial y locución por voz.
 
 El objetivo pedagógico es aprender a diseñar experiencias de usuario contextualizadas para cada tipo de pantalla y resolver la lógica de colas con prioridad, sincronización multi-pantalla y síntesis de voz usando **JavaScript Vanilla** asistido por Inteligencia Artificial.
 
@@ -16,11 +16,11 @@ El trabajo se realiza con **baby steps**: una funcionalidad pequeña y concreta 
 
 ```mermaid
 flowchart LR
-    subgraph V1["Vista 1: Cliente (cliente.html)"]
+    subgraph V1["Vista 1: Tótem (totem.html)"]
         direction TB
-        C1["Formato: Celular (9:16)"]
-        C2["Solicita Turno (General / Prioritario)"]
-        C3["Visualiza Ticket Digital"]
+        C1["Formato: Kiosco / Columna de Ingreso"]
+        C2["Pantalla Tactil: Turno General / Prioritario"]
+        C3["Dispensador Mecanico: Ticket Termico Impreso"]
     end
 
     subgraph V2["Vista 2: Operador (operador.html)"]
@@ -48,13 +48,13 @@ La comunicación entre las tres pestañas se realiza en tiempo real y sin necesi
 turnera-bancos/
 ├── index.html         -> Portada institucional y lanzador de las 3 vistas
 ├── style-index.css    -> Estilos de la portada principal
-├── cliente.html       -> App móvil del usuario para solicitar turno (vista celular)
+├── totem.html         -> Tótem de autoservicio bancario (pantalla táctil y dispensador)
 ├── operador.html      -> Panel del empleado para despachar turnos
 ├── tv.html            -> Pantalla de sala de espera (vista TV 16:9)
-├── style-cliente.css  -> Estilos táctiles adaptados a formato móvil
+├── style-totem.css    -> Estilos de columna física y ranura de ticket
 ├── style-operador.css -> Estilos funcionales para estación de trabajo/caja
 ├── style-tv.css       -> Estilos para pantalla grande y visión a distancia
-├── cliente.js         -> Emite nuevos turnos y muestra el ticket del usuario
+├── totem.js           -> Emite turnos e imprime físicamente el ticket térmico
 ├── operador.js        -> Administra colas con prioridad y llama al siguiente
 └── tv.js              -> Recibe llamados, actualiza pantalla y reproduce voz
 ```
@@ -76,7 +76,7 @@ Luego visitá en tu navegador:
 
 Desde la portada podés:
 1. Abrir cada vista en una pestaña nueva con su respectivo botón:
-   - **Cliente (Celular):** `cliente.html` *(podés abrir las DevTools en modo simulación de dispositivo móvil)*.
+   - **Tótem (Autoservicio):** `totem.html`.
    - **Operador (Caja):** `operador.html`.
    - **Pantalla TV:** `tv.html`.
 2. O pulsar **"Abrir las 3 Vistas en Pestañas Nuevas"** para lanzarlas todas juntas con un solo clic.
@@ -88,23 +88,23 @@ Desde la portada podés:
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Cliente as Cliente (Móvil)
+    actor Totem as Tótem (Ingreso)
     participant Canal as BroadcastChannel ('canal_turnero')
     actor Operador as Operador (Caja)
     participant TV as Pantalla TV (Sala)
 
-    Note over Cliente: Selecciona Tipo (General / Prioritario)
-    Cliente->>Canal: postMessage({ accion: 'NUEVO_TURNO', turno })
+    Note over Totem: Cliente pulsa General o Prioritario
+    Totem->>Totem: Imprime ticket fisico por ranura
+    Totem->>Canal: postMessage({ accion: 'NUEVO_TURNO', turno })
     Canal->>Operador: onmessage (actualiza colas en espera)
 
     Note over Operador: Presiona "Llamar Siguiente" (aplica prioridad)
     Operador->>Canal: postMessage({ accion: 'TURNO_LLAMADO', numero, tipo, caja })
     Canal->>TV: onmessage (renderiza Hero + Historial)
     Note over TV: window.speechSynthesis (vocaliza llamado)
-    Canal->>Cliente: onmessage (notifica si su ticket fue llamado)
 ```
 
-1. **El cliente** elige *"Turno General"* o *"Turno Prioritario"*. Su app le confirma su número (ej. `P-01`) y emite el evento al canal.
+1. **El cliente** ingresa a la sucursal y en la pantalla táctil del **Tótem de autoservicio** elige *"Turno General"* o *"Turno Prioritario"*. El tótem imprime su ticket térmico por la ranura y emite el evento al canal.
 2. **El operador** ve actualizarse los contadores de espera en su panel. Al presionar *"Llamar Siguiente"*, el sistema atiende primero a los turnos prioritarios. Al despachar, emite el turno convocado junto a su caja (ej. `Caja 2`).
 3. **La pantalla de TV** recibe el turno llamado, lo muestra en grande en la zona principal, pasa el anterior al historial de llamados y reproduce la locución de voz en español.
 
@@ -128,29 +128,30 @@ Antes de cada paso, compartí el código de los archivos involucrados para que l
 
 ---
 
-## Prompt 1: Emisión de turnos en la app del cliente (`cliente.html` y `cliente.js`)
+## Prompt 1: Emisión física de turnos en el tótem de autoservicio (`totem.html` y `totem.js`)
 
 ```text
 Actuá como desarrollador frontend trabajando con JavaScript Vanilla.
-Tengo el archivo cliente.html maquetado con apariencia de pantalla de celular (modo vertical) y su archivo cliente.js.
+Tengo el archivo totem.html maquetado con la estructura de un tótem bancario físico (pantalla táctil y ranura dispensadora) y su archivo totem.js.
 
-Necesito programar la lógica del cliente para solicitar un turno:
+Necesito programar la lógica del tótem para dispensar un turno:
 1. Mantener dos contadores independientes autoincrementales en memoria: uno para turnos generales (inicia en 1) y otro para prioritarios (inicia en 1).
 2. Al pulsar el botón #btn-general:
    - Generar el código "G-01", "G-02", etc. (con dos dígitos).
-   - Crear un objeto con el turno: { numero: "G-01", tipo: "General", fecha: new Date().toLocaleTimeString() }.
-   - Mostrar un ticket de confirmación en la pantalla del celular (#ticket-resultado) indicando el número asignado y el mensaje "Aguarde su llamado en la sala".
+   - Crear un objeto con el turno: { numero: "G-01", tipo: "General", fecha: new Date().toLocaleDateString(), hora: new Date().toTimeString().substring(0, 5) }.
+   - Renderizar el ticket térmico impreso (#ticket-impreso) que emerge de la ranura dispensadora con el número asignado, fecha, hora y código de barras.
 3. Al pulsar el botón #btn-prioritario:
    - Generar el código "P-01", "P-02", etc.
-   - Crear el objeto correspondiente con tipo "Prioritario" y mostrar el ticket con un distintivo visual de prioridad.
+   - Crear el objeto correspondiente con tipo "Prioritario" y mostrar el ticket con su badge distintivo de prioridad.
 4. Conectar con un canal de BroadcastChannel llamado 'canal_turnero' y enviar un mensaje cada vez que se genera un turno:
    canal.postMessage({ accion: 'NUEVO_TURNO', turno });
+5. Programar el botón #btn-nuevo-ticket para simular que el cliente retiró el ticket impreso de la boca del dispensador.
 
-Escribí el código para cliente.js con comentarios claros y directos.
+Escribí el código para totem.js con comentarios claros y directos.
 ```
 
 ### Comprobar
-- Al presionar cada botón en `cliente.html`, se muestra el ticket con el número correspondiente y formato de 2 dígitos.
+- Al presionar cada botón en `totem.html`, el ticket físico desciende animadamente por la ranura con el código correlativo de dos dígitos.
 - En la consola del navegador se verifica el envío del mensaje por el `BroadcastChannel`.
 
 ---
@@ -241,21 +242,22 @@ Escribí la implementación para tv.js y el botón en tv.html.
 
 ---
 
-## Prompt 5: Sincronización del estado de cola en la app del cliente (`cliente.js`)
+## Prompt 5: Animación mecánica y ciclo de retiro en el tótem (`totem.js` y `style-totem.css`)
 
 ```text
-Para cerrar la experiencia móvil del cliente en cliente.html y cliente.js:
+Para pulir la experiencia de autoservicio en el tótem físico (totem.html):
 
 Requerimientos:
-1. Escuchar en cliente.js los mensajes de 'canal_turnero'.
-2. Cuando llegue una accion === 'TURNO_LLAMADO':
-   - Si el turno llamado coincide con el turno que el usuario tiene en su ticket activo, cambiar el estado del ticket a "¡Es tu turno! Dirigite a [caja]" con un fondo destacado o alerta visual en la app del celular.
-   - Mostrar cuántos turnos faltan para que sea su turno si aún está en la fila.
-3. Permitir al cliente solicitar un nuevo turno una vez que el anterior fue llamado o descartado mediante un botón "Pedir otro turno".
+1. En style-totem.css, diseñar una animación CSS de corte e impresión mecánica (@keyframes print-ticket):
+   - El ticket debe simular que desciende y emerge desde la ranura de corte (transform: translateY).
+2. En totem.js:
+   - Al pulsar "Atención Prioritaria" o "Atención General", reiniciar la animación de salida para que cada nuevo ticket se imprima de forma fluida.
+   - Programar el botón #btn-nuevo-ticket ("Simular retiro del ticket") para reiniciar el estado de la boca del dispensador y dejarla lista para el próximo visitante.
+   - Mantener actualizado el reloj institucional en el cabezal del tótem cada segundo.
 
-Escribí la lógica para cliente.js manteniendo la persistencia simple del turno propio.
+Escribí los ajustes de animación para style-totem.css y la lógica en totem.js.
 ```
 
 ### Comprobar
-- El celular del cliente informa en tiempo real cuando su número específico es convocado por el operador.
-- Permite reiniciar el flujo para pedir un nuevo turno.
+- Cada vez que se emite un turno en el tótem, el ticket emerge con una animación que simula la salida de papel térmico de la ranura.
+- Al pulsar "Simular retiro del ticket", la ranura queda limpia y disponible para el siguiente usuario.

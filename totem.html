@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco Nacional - Tótem de Autoservicio</title>
+  <link rel="stylesheet" href="style-totem.css">
+</head>
+<body>
+
+  <!-- ENTORNO DEL SIMULADOR: CENTRADO DE SALA BANCARIA -->
+  <div class="totem-viewport">
+
+    <!-- ETIQUETA SUPERIOR DEL KIOSCO -->
+    <div class="kiosk-status-tag">
+      <span class="status-led"></span>
+      <span>Terminal de Autoservicio &bull; Sucursal Central 101</span>
+    </div>
+
+    <!-- CHASIS DE COLUMNA DEL TÓTEM BANCARIO -->
+    <div class="totem-chassis">
+
+      <!-- CABEZAL SUPERIOR DEL TÓTEM -->
+      <div class="totem-top-header">
+        <div class="totem-emblem">BN</div>
+        <div class="totem-branch-info">
+          <span class="totem-bank-name">BANCO NACIONAL</span>
+          <span class="totem-terminal-id">TÓTEM DE INGRESO &bull; ID 01</span>
+        </div>
+        <div class="totem-clock" id="reloj-totem">--:--:--</div>
+      </div>
+
+      <!-- PANTALLA TÁCTIL INTEGRADA AL TÓTEM (CSS GRID) -->
+      <main class="touch-screen-display">
+
+        <!-- INSTRUCCIONES DE PANTALLA -->
+        <header class="touch-screen-header">
+          <h1 class="touch-screen-title">Bienvenido</h1>
+          <p class="touch-screen-subtitle">Toque la pantalla para solicitar su número de atención:</p>
+        </header>
+
+        <!-- BOTONES TÁCTILES DEL DISPENSADOR (FLEXBOX) -->
+        <section class="touch-buttons-stack">
+
+          <!-- BOTÓN PRIORITARIO -->
+          <button type="button" class="kiosk-btn btn-priority" id="btn-prioritario">
+            <div class="kiosk-btn-left">
+              <span class="kiosk-btn-icon">⭐</span>
+              <div class="kiosk-btn-text">
+                <span class="kiosk-btn-title">Atención Prioritaria</span>
+                <span class="kiosk-btn-desc">Adultos mayores &bull; Movilidad reducida &bull; Embarazadas</span>
+              </div>
+            </div>
+            <span class="kiosk-btn-code">P-XX</span>
+          </button>
+
+          <!-- BOTÓN GENERAL -->
+          <button type="button" class="kiosk-btn btn-general" id="btn-general">
+            <div class="kiosk-btn-left">
+              <span class="kiosk-btn-icon">👤</span>
+              <div class="kiosk-btn-text">
+                <span class="kiosk-btn-title">Atención General</span>
+                <span class="kiosk-btn-desc">Operaciones por caja, depósitos y trámites generales</span>
+              </div>
+            </div>
+            <span class="kiosk-btn-code">G-XX</span>
+          </button>
+
+        </section>
+
+        <!-- PIE DE PANTALLA TÁCTIL -->
+        <footer class="touch-screen-footer">
+          <span>El sistema atiende en primer lugar las solicitudes prioritarias.</span>
+        </footer>
+
+      </main>
+
+      <!-- RANURA FÍSICA DISPENSADORA DE TICKETS -->
+      <div class="dispenser-hardware-zone">
+        <div class="dispenser-bezel">
+          <span class="dispenser-light"></span>
+          <span class="dispenser-label">RETIRE SU TICKET AQUÍ</span>
+          <span class="dispenser-light"></span>
+        </div>
+        <div class="dispenser-slot">
+          <!-- BOCA MECÁNICA DE SALIDA DE PAPEL -->
+          <div class="slot-opening"></div>
+
+          <!-- TICKET TÉRMICO FÍSICO QUE SALE DE LA RANURA -->
+          <article class="printed-ticket" id="ticket-impreso">
+            <div class="ticket-cut-edge"></div>
+            
+            <div class="ticket-header">
+              <span class="ticket-bank-name">BANCO NACIONAL S.A.</span>
+              <span class="ticket-badge" id="ticket-categoria">Prioritario</span>
+            </div>
+
+            <div class="ticket-body">
+              <span class="ticket-label">SU NÚMERO DE TURNO</span>
+              <div class="ticket-code" id="ticket-numero">P-01</div>
+              <p class="ticket-instructions" id="ticket-mensaje">Aguarde su llamado en la pantalla de la sala</p>
+            </div>
+
+            <div class="ticket-footer">
+              <div class="ticket-meta-info">
+                <span>Fecha: <strong id="ticket-fecha">--/--/----</strong></span>
+                <span>Hora: <strong id="ticket-hora">--:--</strong></span>
+              </div>
+              <div class="ticket-barcode"></div>
+              <div class="ticket-farewell">Gracias por su visita</div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- BOTÓN PARA EMITIR OTRO TICKET DE FORMA MANUAL -->
+      <div class="totem-reset-bar">
+        <button type="button" class="btn-clear-ticket" id="btn-nuevo-ticket">
+          Simular retiro del ticket
+        </button>
+      </div>
+
+      <!-- BASE DE APOYO DEL PEDESTAL DEL TÓTEM -->
+      <div class="totem-pedestal-base"></div>
+
+    </div>
+
+  </div>
+
+  <script src="totem.js"></script>
+</body>
+</html>

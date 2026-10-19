@@ -38,19 +38,19 @@
     <!-- MATRIZ DE ACCESOS A LAS 3 VISTAS: CSS GRID -->
     <section class="cards-grid">
 
-      <!-- TARJETA 1: CLIENTE (CELULAR) -->
+      <!-- TARJETA 1: TÓTEM BANCARIO (AUTOSERVICIO) -->
       <article class="view-card card-client">
         <div class="card-top">
-          <span class="view-tag tag-client">01 &bull; Celular (9:16)</span>
-          <span class="tech-tag">Móvil Táctil</span>
+          <span class="view-tag tag-client">01 &bull; Kiosco Físico</span>
+          <span class="tech-tag">Tótem Táctil</span>
         </div>
-        <div class="card-icon">📱</div>
-        <h3 class="card-title">App Móvil del Cliente</h3>
+        <div class="card-icon">🏛️</div>
+        <h3 class="card-title">Tótem de Autoservicio</h3>
         <p class="card-description">
-          Simulador de teléfono donde el usuario emite su turno (General o Prioritario), recibe su ticket digital y se le notifica en pantalla cuando es llamado a la caja.
+          Simulador de la columna física de ingreso a la sucursal: pantalla táctil para elegir categoría (General o Prioritario) y ranura mecánica de donde emerge el ticket impreso.
         </p>
-        <a href="cliente.html" target="_blank" rel="noopener noreferrer" class="card-btn btn-client">
-          <span>Abrir App Cliente</span>
+        <a href="totem.html" target="_blank" rel="noopener noreferrer" class="card-btn btn-client">
+          <span>Abrir Tótem Bancario</span>
           <span class="btn-arrow">&rarr;</span>
         </a>
       </article>
@@ -113,7 +113,7 @@
   <script>
     // Lógica para abrir las 3 pantallas en pestañas separadas con un solo clic
     document.getElementById('btn-abrir-todo').addEventListener('click', () => {
-      window.open('cliente.html', '_blank');
+      window.open('totem.html', '_blank');
       window.open('operador.html', '_blank');
       window.open('tv.html', '_blank');
     });
