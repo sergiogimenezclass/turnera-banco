@@ -1,0 +1,383 @@
+/* ==========================================================================
+   ESTILOS: DEMOSTRACIÓN AUTOMÁTICA EN VIVO (DEMO.HTML)
+   Reglas: Grid exterior, Flexbox interior, px y %, colores directos sin variables
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #eef2f6;
+  color: #0f172a;
+  min-height: 100vh;
+  padding: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* CONTENEDOR GENERAL: CSS GRID */
+.demo-layout {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  row-gap: 16px;
+  height: calc(100vh - 32px);
+}
+
+/* ==========================================================================
+   BARRA SUPERIOR DE CONTROL Y NARRADOR (FLEXBOX)
+   ========================================================================== */
+.demo-topbar {
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 20px;
+  padding: 14px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-badge {
+  width: 42px;
+  height: 42px;
+  background-color: #2563eb;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 16px;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-size: 16px;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.brand-subtitle {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* TARJETA NARRATIVA DE EXPLICACIÓN EN VIVO (FLEXBOX) */
+.narrator-card {
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 10px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  max-width: 680px;
+  border-left: 5px solid #2563eb;
+  transition: border-left-color 0.3s ease;
+}
+
+.narrator-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.narrator-step-badge {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #2563eb;
+}
+
+.narrator-status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #64748b;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.narrator-status-dot.pulsing {
+  background-color: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.narrator-body {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.4;
+}
+
+/* BOTONES DE CONTROL (FLEXBOX) */
+.demo-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-ctrl {
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.btn-ctrl:active {
+  transform: translateY(2px);
+}
+
+.btn-play {
+  background-color: #059669;
+  border-color: #047857;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+}
+
+.btn-play:hover {
+  background-color: #047857;
+}
+
+.btn-play.playing {
+  background-color: #d97706;
+  border-color: #b45309;
+}
+
+.btn-play.playing:hover {
+  background-color: #b45309;
+}
+
+.btn-reset {
+  background-color: #ffffff;
+  border-color: #cbd5e1;
+  color: #475569;
+}
+
+.btn-reset:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+.speed-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.speed-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.speed-select {
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   GRID ASIMÉTRICO DE LAS 3 PANTALLAS (28% | 34% | 38%)
+   ========================================================================== */
+.viewport-screens-grid {
+  display: grid;
+  grid-template-columns: 28% 34% 38%;
+  column-gap: 16px;
+  height: 100%;
+  min-height: 0;
+}
+
+/* CONTENEDOR DE CADA MARCO */
+.screen-frame-container {
+  background-color: #ffffff;
+  border: 2px solid #cbd5e1;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  position: relative;
+}
+
+/* BARRA SUPERIOR DE CADA MARCO */
+.frame-header-bar {
+  background-color: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.frame-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.frame-step-num {
+  font-size: 10px;
+  font-weight: 900;
+  background-color: #0f172a;
+  color: #ffffff;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.frame-name {
+  font-size: 12px;
+  font-weight: 800;
+  color: #0f172a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.frame-focus-pill {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background-color: #e2e8f0;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.25s ease;
+}
+
+/* CONTENEDOR DEL IFRAME */
+.iframe-wrapper {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background-color: #eef2f6;
+}
+
+.iframe-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* ==========================================================================
+   SISTEMA DE ILUMINACIÓN PERIMETRAL ACTIVA (GLOW DE CONTROL ORI)
+   ========================================================================== */
+
+/* 1. FOCO EN EL TÓTEM (AZUL CIAN) */
+.screen-frame-container.active-totem {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px #0284c7, 0 0 32px rgba(2, 132, 199, 0.45);
+  transform: translateY(-2px);
+}
+
+.screen-frame-container.active-totem .frame-header-bar {
+  background-color: #eff6ff;
+  border-bottom-color: #bfdbfe;
+}
+
+.screen-frame-container.active-totem .frame-focus-pill {
+  background-color: #0284c7;
+  color: #ffffff;
+  box-shadow: 0 0 8px #0284c7;
+}
+
+/* 2. FOCO EN EL OPERADOR (VERDE ESMERALDA) */
+.screen-frame-container.active-operador {
+  border-color: #059669;
+  box-shadow: 0 0 0 3px #059669, 0 0 32px rgba(5, 150, 105, 0.45);
+  transform: translateY(-2px);
+}
+
+.screen-frame-container.active-operador .frame-header-bar {
+  background-color: #ecfdf5;
+  border-bottom-color: #a7f3d0;
+}
+
+.screen-frame-container.active-operador .frame-focus-pill {
+  background-color: #059669;
+  color: #ffffff;
+  box-shadow: 0 0 8px #059669;
+}
+
+/* 3. FOCO EN LA TV (ÁMBAR / DORADO) */
+.screen-frame-container.active-tv {
+  border-color: #d97706;
+  box-shadow: 0 0 0 3px #d97706, 0 0 35px rgba(217, 119, 6, 0.5);
+  transform: translateY(-2px);
+}
+
+.screen-frame-container.active-tv .frame-header-bar {
+  background-color: #fffbeb;
+  border-bottom-color: #fde68a;
+}
+
+.screen-frame-container.active-tv .frame-focus-pill {
+  background-color: #d97706;
+  color: #ffffff;
+  box-shadow: 0 0 8px #d97706;
+}
+
+/* RESPONSIVE MEDIA QUERIES */
+@media (max-width: 1100px) {
+  .demo-layout {
+    height: auto;
+  }
+
+  .viewport-screens-grid {
+    grid-template-columns: 100%;
+    row-gap: 20px;
+  }
+
+  .screen-frame-container {
+    height: 600px;
+  }
+
+  .demo-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .narrator-card {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .demo-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

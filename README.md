@@ -46,8 +46,11 @@ La comunicación entre las tres pestañas se realiza en tiempo real y sin necesi
 
 ```text
 turnera-bancos/
-├── index.html         -> Portada institucional y lanzador de las 3 vistas
+├── index.html         -> Portada institucional y lanzador de las vistas
 ├── style-index.css    -> Estilos de la portada principal
+├── demo.html          -> Simulador integrado en vivo (iframes con foco e iluminación perimetral)
+├── style-demo.css     -> Estilos del simulador con halo activo (Glow)
+├── demo.js            -> Controlador del guión automático y relato en tiempo real
 ├── totem.html         -> Tótem de autoservicio bancario (pantalla táctil y dispensador)
 ├── operador.html      -> Panel del empleado para despachar turnos
 ├── tv.html            -> Pantalla de sala de espera (vista TV 16:9)
@@ -75,11 +78,12 @@ Luego visitá en tu navegador:
 * **Portada Principal:** `http://localhost:8000/` (o `index.html`)
 
 Desde la portada podés:
-1. Abrir cada vista en una pestaña nueva con su respectivo botón:
+1. **Ver la Demostración Automática Integrada:** `http://localhost:8000/demo.html` (muestra las 3 pantallas en simultáneo mediante iframes, con narrador en vivo e iluminación perimetral que indica en qué ventana está el foco de acción).
+2. **Abrir cada vista por separado en pestañas independientes:**
    - **Tótem (Autoservicio):** `totem.html`.
    - **Operador (Caja):** `operador.html`.
    - **Pantalla TV:** `tv.html`.
-2. O pulsar **"Abrir las 3 Vistas en Pestañas Nuevas"** para lanzarlas todas juntas con un solo clic.
+3. **O pulsar "Abrir 3 Pestañas Separadas"** para lanzarlas en ventanas individuales con un solo clic.
 
 ---
 

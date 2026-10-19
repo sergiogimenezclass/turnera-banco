@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco Nacional - Demostración Interactiva en Vivo</title>
+  <link rel="stylesheet" href="style-demo.css">
+</head>
+<body>
+
+  <!-- CONTENEDOR PRINCIPAL: CSS GRID -->
+  <main class="demo-layout">
+
+    <!-- BARRA DE CONTROL Y NARRADOR EN VIVO (FLEXBOX) -->
+    <header class="demo-topbar">
+      <div class="topbar-brand">
+        <span class="brand-badge">BN</span>
+        <div class="brand-text">
+          <h1 class="brand-title">Simulador de Sistema Completo</h1>
+          <span class="brand-subtitle">Tótem &bull; Terminal de Caja &bull; Pantalla TV de Sala</span>
+        </div>
+      </div>
+
+      <!-- PANEL NARRATIVO DE REGLAS DE NEGOCIO EN VIVO -->
+      <div class="narrator-card" id="narrador-caja">
+        <div class="narrator-head">
+          <span class="narrator-step-badge" id="narrador-paso">LISTO PARA INICIAR</span>
+          <span class="narrator-status-dot" id="narrador-dot"></span>
+        </div>
+        <div class="narrator-body" id="narrador-texto">
+          Presione "Iniciar Demostración Automática" para ver cómo interactúan las tres pantallas mediante BroadcastChannel aplicando la regla de prioridad estricta.
+        </div>
+      </div>
+
+      <!-- BOTONES DE CONTROL DE LA SIMULACIÓN -->
+      <div class="demo-controls">
+        <button type="button" class="btn-ctrl btn-play" id="btn-toggle-demo">
+          <span id="btn-play-icon">▶</span>
+          <span id="btn-play-text">Iniciar Demostración</span>
+        </button>
+
+        <button type="button" class="btn-ctrl btn-reset" id="btn-reiniciar-demo">
+          <span>↺</span>
+          <span>Reiniciar</span>
+        </button>
+
+        <div class="speed-control">
+          <label for="select-velocidad" class="speed-label">Velocidad:</label>
+          <select id="select-velocidad" class="speed-select">
+            <option value="3200">Normal (3.2s)</option>
+            <option value="1800">Rápida (1.8s)</option>
+            <option value="5000">Explicativa (5s)</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <!-- GRID ASIMÉTRICO DE LAS 3 PANTALLAS EN VIVO -->
+    <section class="viewport-screens-grid">
+
+      <!-- COLUMNA 1: TÓTEM DE AUTOSERVICIO (28%) -->
+      <article class="screen-frame-container" id="frame-box-totem">
+        <div class="frame-header-bar">
+          <div class="frame-title-group">
+            <span class="frame-step-num">01</span>
+            <span class="frame-name">Tótem de Autoservicio</span>
+          </div>
+          <span class="frame-focus-pill" id="pill-totem">En Espera</span>
+        </div>
+        <div class="iframe-wrapper">
+          <iframe src="totem.html" id="iframe-totem" title="Tótem de Autoservicio"></iframe>
+        </div>
+      </article>
+
+      <!-- COLUMNA 2: TERMINAL DEL OPERADOR (34%) -->
+      <article class="screen-frame-container" id="frame-box-operador">
+        <div class="frame-header-bar">
+          <div class="frame-title-group">
+            <span class="frame-step-num">02</span>
+            <span class="frame-name">Terminal del Operador</span>
+          </div>
+          <span class="frame-focus-pill" id="pill-operador">En Espera</span>
+        </div>
+        <div class="iframe-wrapper">
+          <iframe src="operador.html" id="iframe-operador" title="Terminal del Operador"></iframe>
+        </div>
+      </article>
+
+      <!-- COLUMNA 3: PANTALLA TV DE SALA (38%) -->
+      <article class="screen-frame-container" id="frame-box-tv">
+        <div class="frame-header-bar">
+          <div class="frame-title-group">
+            <span class="frame-step-num">03</span>
+            <span class="frame-name">Pantalla TV de Sala</span>
+          </div>
+          <span class="frame-focus-pill" id="pill-tv">En Espera</span>
+        </div>
+        <div class="iframe-wrapper">
+          <iframe src="tv.html" id="iframe-tv" title="Pantalla TV de Sala"></iframe>
+        </div>
+      </article>
+
+    </section>
+
+  </main>
+
+  <script src="demo.js"></script>
+</body>
+</html>
