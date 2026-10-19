@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ESTILOS: VISTA PANTALLA TV (SALA DE ESPERA 16:9)
+   ESTILOS: VISTA PANTALLA TV (SALA DE ESPERA 16:9 - 4 SERVICIOS)
    Reglas: Grid exterior, Flexbox interior, px y %, colores directos sin variables
    ========================================================================== */
 
@@ -147,7 +147,7 @@ body {
   align-items: center;
   justify-content: center;
   margin: auto 0;
-  padding: 20px 0;
+  padding: 16px 0;
 }
 
 .hero-label {
@@ -156,17 +156,30 @@ body {
   letter-spacing: 4px;
   text-transform: uppercase;
   color: #64748b;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .hero-turn-number {
-  font-size: 104px;
+  font-size: 108px;
   font-weight: 900;
   line-height: 0.95;
   letter-spacing: 4px;
   color: #ffffff;
   text-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.hero-service-tag {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #7dd3fc;
+  background-color: #0b1424;
+  border: 1px solid #1f365c;
+  padding: 6px 18px;
+  border-radius: 20px;
+  margin-top: 14px;
 }
 
 /* DESTINO: CAJA O PUESTO ASIGNADO */
@@ -273,8 +286,16 @@ body {
   border-left: 5px solid #f59e0b;
 }
 
-.rail-item.item-general {
+.rail-item.item-caja {
   border-left: 5px solid #38bdf8;
+}
+
+.rail-item.item-tarjetas {
+  border-left: 5px solid #a78bfa;
+}
+
+.rail-item.item-asesoria {
+  border-left: 5px solid #34d399;
 }
 
 .rail-item-info {
@@ -293,14 +314,22 @@ body {
   color: #fbbf24;
 }
 
-.rail-item.item-general .rail-code {
+.rail-item.item-caja .rail-code {
   color: #7dd3fc;
+}
+
+.rail-item.item-tarjetas .rail-code {
+  color: #c4b5fd;
+}
+
+.rail-item.item-asesoria .rail-code {
+  color: #6ee7b7;
 }
 
 .rail-type-label {
   font-size: 10px;
   font-weight: 700;
-  color: #64748b;
+  color: #8c9bb0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }

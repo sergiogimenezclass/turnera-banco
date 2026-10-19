@@ -1,6 +1,6 @@
 /**
- * tv.js - Lógica de la pantalla de sala de espera (TV 16:9)
- * Recepción por BroadcastChannel, actualización Hero, historial y locución por voz
+ * tv.js - Lógica de la pantalla de sala de espera (TV 16:9 - 4 servicios)
+ * Recepción por BroadcastChannel, actualización Hero con servicio, historial y locución por voz
  */
 
 // 1. Instancia del canal de comunicación
@@ -14,6 +14,7 @@ let audioHabilitado = false;
 const tvHero = document.getElementById('tv-hero');
 const tvCategoria = document.getElementById('tv-categoria');
 const tvNumero = document.getElementById('tv-numero');
+const tvServicio = document.getElementById('tv-servicio');
 const tvDestino = document.getElementById('tv-destino');
 const tvHistorialLista = document.getElementById('tv-historial-lista');
 const relojTv = document.getElementById('reloj-tv');
@@ -30,18 +31,18 @@ setInterval(actualizarRelojTv, 1000);
 actualizarRelojTv();
 
 // 5. Locución por voz con SpeechSynthesis
-function reproducirLocucion(numero, caja) {
+function reproducirLocucion(numero, servicio, caja) {
   if (!audioHabilitado || !('speechSynthesis' in window)) return;
 
   // Cancelar audio previo en curso
   window.speechSynthesis.cancel();
 
-  // Armar frase institucional clara
-  const mensaje = `Turno ${numero}, dirigirse a ${caja}`;
+  // Frase institucional clara
+  const mensaje = `Turno ${numero}, ${servicio}, dirigirse a ${caja}`;
   const locucion = new SpeechSynthesisUtterance(mensaje);
 
   locucion.lang = 'es-AR';
-  locucion.rate = 0.9;  // Velocidad pausada y clara
+  locucion.rate = 0.9;
   locucion.pitch = 1.0;
 
   window.speechSynthesis.speak(locucion);
@@ -49,15 +50,17 @@ function reproducirLocucion(numero, caja) {
 
 // 6. Actualización de la pantalla al recibir un nuevo llamado
 function actualizarPantalla(turno) {
-  // Desplazar el turno actual al historial antes de mostrar el nuevo (si ya había uno)
+  // Desplazar el turno previo al historial antes de mostrar el nuevo
   const turnoActualPrevio = tvNumero.textContent;
   const cajaPrevia = tvDestino.textContent;
+  const servicioPrevio = tvServicio.textContent;
 
   if (turnoActualPrevio && turnoActualPrevio !== '--') {
-    const esPrioritario = turnoActualPrevio.startsWith('P');
+    const prefijo = turnoActualPrevio.charAt(0);
     historialLlamados.unshift({
       numero: turnoActualPrevio,
-      tipo: esPrioritario ? 'Prioritario' : 'General',
+      servicio: servicioPrevio,
+      prefijo: prefijo,
       caja: cajaPrevia
     });
 
@@ -70,9 +73,10 @@ function actualizarPantalla(turno) {
 
   // Actualizar Zona Hero
   tvNumero.textContent = turno.numero;
+  tvServicio.textContent = turno.servicio || 'Atención General';
   tvDestino.textContent = turno.caja;
 
-  if (turno.tipo === 'Prioritario') {
+  if (turno.tipo === 'Prioritario' || turno.numero.startsWith('P')) {
     tvCategoria.textContent = '⭐ Atención Prioritaria';
     tvCategoria.className = 'category-pill pill-priority';
   } else {
@@ -82,11 +86,11 @@ function actualizarPantalla(turno) {
 
   // Disparar animación de pulso visual
   tvHero.classList.remove('animar-llamado');
-  void tvHero.offsetWidth; // Forzar reflow para reiniciar keyframe
+  void tvHero.offsetWidth; // Forzar reflow
   tvHero.classList.add('animar-llamado');
 
   // Reproducir locución por voz
-  reproducirLocucion(turno.numero, turno.caja);
+  reproducirLocucion(turno.numero, turno.servicio || '', turno.caja);
 }
 
 // 7. Renderizado del historial secundario
@@ -96,15 +100,23 @@ function renderizarHistorial() {
     return;
   }
 
-  tvHistorialLista.innerHTML = historialLlamados.map((item) => `
-    <div class="rail-item ${item.tipo === 'Prioritario' ? 'item-priority' : 'item-general'}">
-      <div class="rail-item-info">
-        <span class="rail-code">${item.numero}</span>
-        <span class="rail-type-label">${item.tipo}</span>
+  tvHistorialLista.innerHTML = historialLlamados.map((item) => {
+    let claseItem = 'item-general';
+    if (item.prefijo === 'P') claseItem = 'item-priority';
+    else if (item.prefijo === 'C') claseItem = 'item-caja';
+    else if (item.prefijo === 'T') claseItem = 'item-tarjetas';
+    else if (item.prefijo === 'A') claseItem = 'item-asesoria';
+
+    return `
+      <div class="rail-item ${claseItem}">
+        <div class="rail-item-info">
+          <span class="rail-code">${item.numero}</span>
+          <span class="rail-type-label">${item.servicio}</span>
+        </div>
+        <span class="rail-dest">${item.caja}</span>
       </div>
-      <span class="rail-dest">${item.caja}</span>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 // 8. Habilitación de audio (política de interacción del navegador)
@@ -114,7 +126,6 @@ btnAudio.addEventListener('click', () => {
   audioEstadoTexto.textContent = 'Audio activo (ES)';
   btnAudio.style.display = 'none';
 
-  // Sonido de confirmación corto
   if ('speechSynthesis' in window) {
     const prueba = new SpeechSynthesisUtterance('Audio activado');
     prueba.lang = 'es-AR';
