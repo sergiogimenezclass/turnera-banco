@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ESTILOS: VISTA OPERADOR (TERMINAL DE TRABAJO / CAJA)
+   ESTILOS: VISTA OPERADOR (TERMINAL DE TRABAJO - 4 COLAS)
    Reglas: Grid exterior, Flexbox interior, px y %, colores directos sin variables
    ========================================================================== */
 
@@ -24,7 +24,7 @@ body {
 /* LAYOUT GENERAL: CSS GRID */
 .console-layout {
   width: 100%;
-  max-width: 580px;
+  max-width: 680px;
   background-color: #141824;
   border: 1px solid #252d40;
   border-radius: 24px;
@@ -103,18 +103,18 @@ body {
   border-color: #3b82f6;
 }
 
-/* MATRIZ DE TELEMETRÍA: CSS GRID */
+/* MATRIZ DE TELEMETRÍA (4 COLUMNAS): CSS GRID */
 .telemetry-section {
   display: grid;
-  grid-template-columns: 50% 50%;
-  column-gap: 14px;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 10px;
 }
 
 .telemetry-card {
   background-color: #0d1017;
   border: 1px solid #1f2638;
-  border-radius: 16px;
-  padding: 16px;
+  border-radius: 14px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -126,8 +126,16 @@ body {
   border-top: 3px solid #f59e0b;
 }
 
-.card-general {
+.card-caja {
   border-top: 3px solid #38bdf8;
+}
+
+.card-tarjetas {
+  border-top: 3px solid #a78bfa;
+}
+
+.card-asesoria {
+  border-top: 3px solid #34d399;
 }
 
 .telemetry-head {
@@ -137,12 +145,12 @@ body {
 }
 
 .telemetry-badge {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  padding: 3px 8px;
-  border-radius: 6px;
+  padding: 2px 6px;
+  border-radius: 5px;
 }
 
 .badge-p {
@@ -150,23 +158,33 @@ body {
   color: #451a03;
 }
 
-.badge-g {
+.badge-c {
   background-color: #38bdf8;
   color: #082f49;
 }
 
-.telemetry-title {
-  font-size: 11px;
-  font-weight: 700;
+.badge-t {
+  background-color: #a78bfa;
+  color: #2e1065;
+}
+
+.badge-a {
+  background-color: #34d399;
+  color: #064e3b;
+}
+
+.telemetry-code {
+  font-size: 10px;
+  font-weight: 800;
   color: #64748b;
-  text-transform: uppercase;
+  font-family: monospace;
 }
 
 .telemetry-value {
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 900;
   color: #ffffff;
-  margin: 10px 0 4px 0;
+  margin: 6px 0 2px 0;
   font-family: monospace;
   line-height: 1;
 }
@@ -175,12 +193,20 @@ body {
   color: #fbbf24;
 }
 
-.card-general .telemetry-value {
+.card-caja .telemetry-value {
   color: #7dd3fc;
 }
 
+.card-tarjetas .telemetry-value {
+  color: #c4b5fd;
+}
+
+.card-asesoria .telemetry-value {
+  color: #6ee7b7;
+}
+
 .telemetry-caption {
-  font-size: 11px;
+  font-size: 10px;
   color: #64748b;
   line-height: 1.2;
 }
@@ -228,7 +254,7 @@ body {
 }
 
 .serving-number {
-  font-size: 64px;
+  font-size: 68px;
   font-weight: 900;
   color: #ffffff;
   line-height: 1;
@@ -236,9 +262,18 @@ body {
   margin: 4px 0;
 }
 
-.serving-meta {
+.serving-service {
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #38bdf8;
+  margin-bottom: 4px;
+}
+
+.serving-meta {
+  font-size: 12px;
+  font-weight: 600;
   color: #94a3b8;
 }
 
@@ -309,7 +344,7 @@ body {
 }
 
 /* RESPONSIVE MEDIA QUERIES */
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   body {
     padding: 0;
     background-color: #141824;
@@ -325,7 +360,7 @@ body {
   }
 
   .telemetry-section {
-    grid-template-columns: 100%;
+    grid-template-columns: 50% 50%;
     row-gap: 10px;
   }
 }
