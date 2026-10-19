@@ -92,12 +92,15 @@ No le pidas a la IA que construya todo el sistema de una sola vez. Copiá un pro
 
 Antes de cada paso, compartí el código de los archivos involucrados para que la IA trabaje sobre la base existente en lugar de sobreescribirla por completo.
 
-### Reglas para todos los pasos
-- Usar **JavaScript Vanilla** estándar; no agregar librerías externas ni frameworks.
-- Respetar los nombres de clases, identificadores y atributos HTML acordados.
-- Mantener separados los estilos (`style-*.css`) de la lógica (`*.js`).
-- Explicar las funciones y conceptos clave con comentarios breves y claros en el código.
-- Verificar manualmente cada punto de control antes de avanzar.
+### Reglas generales de código y maquetación
+- **Grid:** Utilizar CSS Grid para el layout general y la estructura contenedora de cada vista.
+- **Flexbox:** Utilizar Flexbox exclusivamente dentro de los componentes internos (tarjetas, botones, headers, badges).
+- **Colores directos:** Definir colores en formato hexadecimal o RGB directamente en las reglas CSS (sin variables CSS `:root` / `var(...)`).
+- **Unidades de medida:** Emplear únicamente `px` y `%` para dimensiones, espaciados y tipografías (sin `rem`, `em`, `vh`, `vw`).
+- **Responsividad:** Diseñar interfaces adaptables mediante Media Queries estándar con puntos de quiebre en `px`.
+- **JavaScript Vanilla:** Sin librerías, dependencias ni frameworks externos.
+- **Nomenclatura y separación:** Respetar los nombres de clases e IDs acordados y mantener separados HTML, CSS y JS.
+- **Comentarios:** Explicar conceptos clave y lógica de negocio con comentarios concisos en el código.
 
 ---
 
