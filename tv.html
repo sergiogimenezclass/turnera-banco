@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banco Nacional - Sala de Espera</title>
+  <link rel="stylesheet" href="style-tv.css">
+</head>
+<body>
+
+  <!-- CONTENEDOR PRINCIPAL: CSS GRID (16:9 RATIO EN MONITORES) -->
+  <main class="tv-layout">
+
+    <!-- ZONA HERO: TURNO PRINCIPAL CONVOCADO -->
+    <section class="tv-hero-stage" id="tv-hero">
+      <!-- CABECERA HERO -->
+      <div class="hero-top-row">
+        <div class="hero-brand">
+          <span class="hero-brand-icon">BN</span>
+          <span class="hero-brand-name">Banco Nacional &bull; Sala de Espera</span>
+        </div>
+        <div class="hero-meta-right">
+          <span class="category-pill pill-priority" id="tv-categoria">⭐ Atención Prioritaria</span>
+          <span class="digital-clock" id="reloj-tv">--:--:--</span>
+        </div>
+      </div>
+
+      <!-- NÚMERO DE TURNO GIGANTE (PROTAGONISTA) -->
+      <div class="hero-center-group">
+        <span class="hero-label">Turno Convocado</span>
+        <div class="hero-turn-number" id="tv-numero">--</div>
+      </div>
+
+      <!-- DESTINO: CAJA O BOX ASIGNADO -->
+      <div class="hero-destination-box">
+        <div class="destination-info">
+          <span class="destination-sub">Por favor dirigirse a:</span>
+          <span class="destination-target" id="tv-destino">En espera de llamado</span>
+        </div>
+        <div class="destination-arrow">&rarr;</div>
+      </div>
+    </section>
+
+    <!-- ZONA SECUNDARIA: HISTORIAL DE ÚLTIMOS LLAMADOS -->
+    <aside class="tv-history-rail">
+      <div class="rail-header">
+        <h2 class="rail-title">Llamados Previos</h2>
+        <span class="rail-subtitle">Últimos turnos</span>
+      </div>
+
+      <div class="rail-list" id="tv-historial-lista">
+        <div class="rail-empty-message">No hay llamados anteriores registrados</div>
+      </div>
+
+      <!-- CONTROL DE AUDIO / ACCESIBILIDAD -->
+      <div class="rail-footer">
+        <div class="audio-status">
+          <span class="audio-led" id="audio-led"></span>
+          <span class="audio-text" id="audio-estado-texto">Audio en espera</span>
+        </div>
+        <button type="button" class="btn-audio-toggle" id="btn-audio">
+          🔊 Activar Audio
+        </button>
+      </div>
+    </aside>
+
+  </main>
+
+  <script src="tv.js"></script>
+</body>
+</html>
