@@ -305,3 +305,73 @@ Para demostraciones o presentaciones pedagógicas sin múltiples pestañas:
 
 #### Comprobar
 - Al abrir `demo.html` y pulsar "Iniciar Demostración", el narrador relata cada acción mientras el foco luminoso se desplaza secuencialmente entre el Tótem, el Operador y la TV.
+
+---
+
+## 🏆 Desafíos Extra (Nivel Pro)
+
+Si ya completaste el flujo base y querés llevar el proyecto al siguiente nivel, acá tenés 6 desafíos técnicos para resolver con JavaScript Vanilla asistido por IA:
+
+### 1. Campanilla "Ding-Dong" institucional antes de hablar (Web Audio API)
+* **Objetivo:** En los bancos y aeropuertos, la TV emite un acorde característico (*ding-dong* de dos tonos) que capta la atención del salón antes de que la voz hable.
+* **Reto técnico:** Sin descargar archivos `.mp3` externos. Usar la API nativa `AudioContext` de JavaScript para sintetizar dos notas puras consecutivas (ej. Mi `659 Hz` seguida de Do `523 Hz`) durante `0.8s` y secuenciarlo antes de `window.speechSynthesis.speak()`.
+
+```text
+Prompt de ayuda:
+"En tv.js, creá una función reproducirDingDong() usando Web Audio API nativo (AudioContext) sin archivos de audio externos. Debe generar un acorde de dos tonos suaves y armónicos que suene durante 800ms. Hacé que vocalizarLlamado() espere a que termine el ding-dong antes de disparar el sintetizador de voz."
+```
+
+---
+
+### 2. Gestión de "Turno Ausente" y "Re-llamado" (Terminal del Operador)
+* **Objetivo:** Si un cliente convocado no se acerca a la caja en 30 segundos, el operador debe poder volver a llamarlo o marcarlo como ausente.
+* **Reto técnico:** Agregar botones *"Re-llamar"* (repite el anuncio en la TV sin alterar la cola) y *"Marcar Ausente"*. Al marcar ausente, el turno pasa a una lista secundaria de "Ausentes recuperables" por 5 minutos antes de descartarse definitivamente.
+
+```text
+Prompt de ayuda:
+"En operador.html y operador.js, agregá los botones 'Re-llamar' y 'Marcar Ausente'. Al re-llamar, reenviar el evento TURNO_LLAMADO a la TV. Al marcar ausente, mover el turno a un array turnosAusentes con un temporizador de expiración y permitir que el operador pueda restaurarlo a la cola si el cliente reaparece."
+```
+
+---
+
+### 3. Estimador de Tiempo de Espera en el Ticket Térmico (Tótem)
+* **Objetivo:** Que el cliente sepa cuántos minutos aproximados tendrá de espera al recibir el ticket.
+* **Reto técnico:** Calcular el tiempo multiplicando la cantidad de personas por delante en esa cola por el promedio histórico del servicio (ej. Caja: 3 min por persona; Créditos: 10 min por persona). Imprimir en el ticket: *"Tiempo estimado: ~9 min (3 personas antes que usted)"*.
+
+```text
+Prompt de ayuda:
+"En totem.js, consultá la cantidad de turnos acumulados antes de emitir e imprimí en el ticket térmico una línea con el tiempo de espera estimado en minutos, asumiendo 3 min para Caja y 8 min para Asesoría."
+```
+
+---
+
+### 4. Persistencia anti-recargas con `localStorage` (Protección contra F5)
+* **Objetivo:** Si el operador o el tótem recargan accidentalmente la pestaña, el sistema no debe perder los turnos acumulados ni volver los contadores a `01`.
+* **Reto técnico:** Guardar el estado de las 4 colas y los contadores en `localStorage` ante cada mutación, hidratar el estado al iniciar y proveer un botón de "Cierre de Jornada / Reiniciar a Cero".
+
+```text
+Prompt de ayuda:
+"En operador.js y totem.js, implementá persistencia de las colas y los contadores usando localStorage con JSON.stringify. Al recargar la página, recuperá el estado previo para no perder la numeración ni los turnos en espera."
+```
+
+---
+
+### 5. Modo "Móvil / Seguimiento por QR" en el Teléfono
+* **Objetivo:** Permitir que el cliente escanee un código QR en el ticket para ir a un café cercano y ver desde su celular cuántos turnos le faltan.
+* **Reto técnico:** Diseñar una vista ultraligera `cliente.html?turno=C-04` que escuche el `BroadcastChannel` y muestre en tiempo real: *"Turnos por delante: 2"*, cambiando a color verde y vibrando (`navigator.vibrate`) cuando la caja lo convoca.
+
+```text
+Prompt de ayuda:
+"Creá cliente.html con diseño móvil que lea el parámetro de la URL (URLSearchParams) para saber qué turno tiene el usuario. Conectalo a 'canal_turnero' para calcular cuántos turnos faltan para su llamado y alertarlo con vibración y color cuando su número aparezca en pantalla."
+```
+
+---
+
+### 6. Tablero de Métricas y Productividad de Sucursal (`metricas.html`)
+* **Objetivo:** Proveer al gerente del banco un panel de control para auditar el rendimiento del día.
+* **Reto técnico:** Una vista que calcule: total de clientes atendidos, tiempo promedio de atención por puesto y un gráfico de barras horizontal en CSS puro (con porcentajes de ancho) que compare el volumen de cada uno de los 4 servicios bancarios.
+
+```text
+Prompt de ayuda:
+"Creá metricas.html con un panel dashboard que escuche los eventos del canal y registre: total de atendidos por servicio, tiempo promedio entre emisión y llamado, y una gráfica de barras en CSS puro (sin Chart.js) comparando la demanda de los 4 servicios."
+```
