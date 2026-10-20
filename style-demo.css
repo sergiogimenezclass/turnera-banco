@@ -210,11 +210,11 @@ body {
 }
 
 /* ==========================================================================
-   GRID ASIMÉTRICO DE LAS 3 PANTALLAS (28% | 34% | 38%)
+   GRID ASIMÉTRICO DE LAS 3 PANTALLAS (32% | 33% | 35%)
    ========================================================================== */
 .viewport-screens-grid {
   display: grid;
-  grid-template-columns: 28% 34% 38%;
+  grid-template-columns: 32% 33% 35%;
   column-gap: 16px;
   height: 100%;
   min-height: 0;
