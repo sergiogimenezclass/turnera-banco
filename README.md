@@ -66,19 +66,17 @@ turnera-bancos/
 
 ## Cómo ejecutar el proyecto
 
-Para que la comunicación por `BroadcastChannel` funcione correctamente entre pestañas o ventanas separadas, deben estar servidas bajo el mismo origen.
+Para que la comunicación por `BroadcastChannel` funcione correctamente entre pestañas o ventanas separadas, los archivos deben estar servidos bajo el mismo origen (`http://localhost:...`) y no mediante el protocolo directo `file://`.
 
-Iniciá un servidor local desde la carpeta del proyecto:
+La forma más sencilla y recomendada es utilizar **Visual Studio Code**:
 
-```bash
-python3 -m http.server 8000
-```
-
-Luego visitá en tu navegador:
-* **Portada Principal:** `http://localhost:8000/` (o `index.html`)
+1. Instalá la extensión **Live Server** (de *Ritwick Dey*) desde el panel de Extensiones de VS Code (`Ctrl + Shift + X`).
+2. Hacé clic derecho sobre el archivo `index.html` en el explorador de archivos.
+3. Seleccioná **"Open with Live Server"** (o hacé clic en el botón **"Go Live"** en la barra inferior azul de VS Code).
+4. Se abrirá automáticamente tu navegador predeterminado en `http://127.0.0.1:5500/index.html`.
 
 Desde la portada podés:
-1. **Ver la Demostración Automática Integrada:** `http://localhost:8000/demo.html` (muestra las 3 pantallas en simultáneo mediante iframes, con narrador en vivo e iluminación perimetral que indica en qué ventana está el foco de acción).
+1. **Ver la Demostración Automática Integrada:** `demo.html` (muestra las 3 pantallas en simultáneo mediante iframes, con narrador en vivo e iluminación perimetral activa).
 2. **Abrir cada vista por separado en pestañas individuales:**
    - **Tótem (Autoservicio):** `totem.html`
    - **Operador (Caja):** `operador.html`
