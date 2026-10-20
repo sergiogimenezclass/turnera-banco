@@ -17,7 +17,6 @@ const btnPrioritario = document.getElementById('btn-prioritario');
 const btnCaja = document.getElementById('btn-caja');
 const btnTarjetas = document.getElementById('btn-tarjetas');
 const btnCreditos = document.getElementById('btn-creditos');
-const btnNuevoTicket = document.getElementById('btn-nuevo-ticket');
 const relojTotem = document.getElementById('reloj-totem');
 
 const ticketImpreso = document.getElementById('ticket-impreso');
@@ -121,18 +120,6 @@ btnTarjetas.addEventListener('click', () => {
 
 btnCreditos.addEventListener('click', () => {
   emitirTurno('General', 'Asesoría y Créditos', 'A');
-});
-
-btnNuevoTicket.addEventListener('click', () => {
-  // Simular que el cliente retiró el papel de la ranura
-  ticketImpreso.style.animation = 'none';
-  ticketNumero.textContent = '--';
-  ticketServicio.textContent = 'Sin Turno';
-  ticketCategoria.textContent = 'En Espera';
-  ticketCategoria.className = 'ticket-badge';
-  ticketMensaje.textContent = 'Toque un botón para emitir su turno';
-  ticketFecha.textContent = '--/--/----';
-  ticketHora.textContent = '--:--';
 });
 
 // Inicializar un primer ticket de muestra en la ranura
