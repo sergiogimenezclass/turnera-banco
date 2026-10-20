@@ -79,11 +79,10 @@ Luego visitá en tu navegador:
 
 Desde la portada podés:
 1. **Ver la Demostración Automática Integrada:** `http://localhost:8000/demo.html` (muestra las 3 pantallas en simultáneo mediante iframes, con narrador en vivo e iluminación perimetral que indica en qué ventana está el foco de acción).
-2. **Abrir cada vista por separado en pestañas independientes:**
-   - **Tótem (Autoservicio):** `totem.html`.
-   - **Operador (Caja):** `operador.html`.
-   - **Pantalla TV:** `tv.html`.
-3. **O pulsar "Abrir 3 Pestañas Separadas"** para lanzarlas en ventanas individuales con un solo clic.
+2. **Abrir cada vista por separado en pestañas individuales:**
+   - **Tótem (Autoservicio):** `totem.html`
+   - **Operador (Caja):** `operador.html`
+   - **Pantalla TV (Sala):** `tv.html`
 
 ---
 
@@ -132,134 +131,177 @@ Antes de cada paso, compartí el código de los archivos involucrados para que l
 
 ---
 
-## Prompt 1: Emisión física de turnos en el tótem de autoservicio (`totem.html` y `totem.js`)
+## Guía Pedagógica Paso a Paso (Prompts Atómicos)
 
-```text
-Actuá como desarrollador frontend trabajando con JavaScript Vanilla.
-Tengo el archivo totem.html maquetado con la estructura de un tótem bancario físico (pantalla táctil y ranura dispensadora) y su script totem.js.
-
-Necesito programar la lógica del tótem para dispensar turnos en 4 categorías:
-1. Mantener 4 contadores independientes autoincrementales en memoria:
-   - contadorPrioritario (prefijo 'P')
-   - contadorCaja (prefijo 'C')
-   - contadorTarjetas (prefijo 'T')
-   - contadorCreditos (prefijo 'A')
-2. Al pulsar cada botón del tótem (#btn-prioritario, #btn-caja, #btn-tarjetas, #btn-creditos):
-   - Generar el código correlativo de dos dígitos (ej. "P-01", "C-01", "T-01", "A-01").
-   - Crear un objeto turno: { numero, tipo, servicio, prefijo, fecha, hora }.
-   - Renderizar el ticket térmico (#ticket-impreso) que emerge animadamente por la ranura con el número, el servicio, fecha, hora, badge y código de barras.
-   - Enviar el mensaje al canal nativo: canal.postMessage({ accion: 'NUEVO_TURNO', turno }).
-3. Programar el botón #btn-nuevo-ticket para simular que el cliente retiró el ticket impreso de la boca del dispensador.
-
-Escribí el código para totem.js con comentarios claros y directos.
-```
-
-### Comprobar
-- Al presionar cualquiera de los 4 botones en `totem.html`, el ticket físico desciende animadamente por la ranura con el código y servicio correcto.
-- En la consola del navegador se verifica el envío del objeto al `BroadcastChannel`.
+Seguí este camino de desarrollo incremental (*baby steps*). Cada paso aborda una única funcionalidad pequeña y concreta, fácil de probar y verificar antes de continuar.
 
 ---
 
-## Prompt 2: Telemetría de 4 colas y llamado prioritario en la terminal del operador (`operador.html` y `operador.js`)
+### Paso 1: Maquetación del Tótem en grilla 2x2 y ranura dispensadora (`totem.html` y `style-totem.css`)
 
 ```text
-Continuamos con la vista del empleado de atención en operador.html y su script operador.js.
-
-La interfaz del operador cuenta con:
-- Un selector #select-caja con opciones ("Caja 2", "Caja 1", "Box 1", "Box 2").
-- Cuatro contadores de telemetría (#contador-prioritario, #contador-caja, #contador-tarjetas, #contador-asesoria).
-- Un botón principal #btn-llamar ("Llamar Siguiente Turno").
-- Un área para mostrar el turno y servicio actualmente en atención (#turno-actual-numero, #turno-actual-servicio).
-
-Implementá la lógica en operador.js:
-1. Conectar a 'canal_turnero' mediante BroadcastChannel.
-2. Mantener 4 arrays en memoria: colaPrioritaria, colaCaja, colaTarjetas y colaAsesoria.
-3. Al recibir un mensaje con accion === 'NUEVO_TURNO', clasificar el turno en la cola que corresponda y actualizar los contadores.
-4. Al hacer clic en #btn-llamar:
-   - Regla 1 (Prioridad absoluta): Si hay turnos en colaPrioritaria, extraer siempre el primero (shift()).
-   - Regla 2 (Afinidad de puesto): Si no hay prioritarios, atender según el puesto seleccionado (Cajas atienden colaCaja, Box 1 atiende colaTarjetas, Box 2 atiende colaAsesoria). Si la cola propia está vacía, atender cualquier otra cola pendiente.
-   - Si todas las colas están vacías, mostrar un mensaje de aviso en pantalla indicando que no hay clientes en espera.
-   - Actualizar el área de atención y emitir al canal:
-     canal.postMessage({ accion: 'TURNO_LLAMADO', numero: turno.numero, tipo: turno.tipo, servicio: turno.servicio, caja: puestoSeleccionado, hora });
-
-Mantené el código modular, sin librerías externas y comentado.
+Actuá como desarrollador frontend.
+Quiero maquetar la estructura de un tótem bancario físico en totem.html y style-totem.css.
+- Chasis central vertical (#totem-chassis) con cabezal, reloj e indicador LED.
+- Pantalla táctil con 4 botones de servicio en grilla 2x2 (CSS Grid de 2 columnas):
+  1. "Atención Prioritaria" (P-XX)
+  2. "Operaciones por Caja" (C-XX)
+  3. "Tarjetas y Cuentas" (T-XX)
+  4. "Asesoría y Créditos" (A-XX)
+- Una ranura mecánica inferior (#dispenser-slot) con un ticket térmico (#ticket-impreso) preparado para emerger.
+- Reglas: CSS Grid para el layout general, Flexbox para los componentes internos, medidas en px y %, colores directos sin variables CSS.
 ```
 
-### Comprobar
-- Al emitir turnos desde `totem.html`, los contadores de las 4 colas en `operador.html` suben en tiempo real.
-- Al pulsar "Llamar Siguiente", los turnos prioritarios `P` se atienden antes que cualquier otro servicio.
-- Al despachar, el evento `TURNO_LLAMADO` se publica en el `BroadcastChannel`.
+#### Comprobar
+- Al abrir `totem.html`, se ve el tótem con estilo institucional y sus 4 botones distribuidos en una matriz prolija de 2x2.
+- Debajo se observa la ranura física del dispensador.
 
 ---
 
-## Prompt 3: Recepción e interfaz hero en la pantalla de TV (`tv.html` y `tv.js`)
+### Paso 2: Contadores independientes y animación del ticket térmico (`totem.js` y `style-totem.css`)
 
 ```text
-Tengo la vista de sala de espera en tv.html, su estilo style-tv.css y su script tv.js.
-
-Necesito implementar en tv.js la recepción de los llamados del operador y su visualización:
-1. Conectar a 'canal_turnero' mediante BroadcastChannel.
-2. Escuchar mensajes con accion === 'TURNO_LLAMADO'.
-3. Al recibir un llamado, actualizar la Zona Principal (Hero):
-   - Elemento #tv-numero: código del turno en tipografía gigante.
-   - Elemento #tv-servicio: nombre del servicio solicitado.
-   - Elemento #tv-destino: puesto asignado (ej. "Caja 2", "Box 1").
-   - Elemento #tv-categoria: badge destacado según si es prioritario o general.
-4. Mantener un array historialLlamados con un máximo de 4 turnos previos y renderizarlos en la Zona Secundaria (#tv-historial-lista) con distintivos de color según el prefijo.
-5. Agregar una clase CSS temporal 'animar-llamado' al contenedor hero para generar un efecto visual de pulso cada vez que entra un nuevo llamado.
-
-Escribí el código para tv.js y las reglas de animación en style-tv.css.
+En totem.js y style-totem.css, implementemos la generación del ticket impreso:
+1. Declarar 4 contadores en memoria: contadorPrioritario, contadorCaja, contadorTarjetas y contadorCreditos.
+2. Al pulsar cualquiera de los 4 botones:
+   - Incrementar su contador y formatear el código (ej. P-01, C-01, T-01, A-01).
+   - Actualizar el contenido del ticket (#ticket-numero, #ticket-servicio, fecha y hora).
+   - Asignar el badge correspondiente (Prioritario o General).
+3. En style-totem.css, crear una animación @keyframes print-ticket para que el ticket descienda visualmente saliendo de la boca mecánica.
 ```
 
-### Comprobar
-- Al presionar "Llamar Siguiente" en el panel del operador, la pantalla de TV actualiza inmediatamente el turno gigante y la caja asignada.
-- El turno anterior pasa a la lista de historial secundario.
-- El badge visual distingue claramente si la atención es prioritaria o general.
-- Se ejecuta la animación visual de llamado.
+#### Comprobar
+- Al hacer clic en cualquier servicio, el ticket térmico emerge animadamente por la ranura con el código correlativo y la fecha/hora actual.
 
 ---
 
-## Prompt 4: Síntesis de voz y accesibilidad en la TV (`tv.js`)
+### Paso 3: Emisión de turnos por BroadcastChannel (`totem.js`)
 
 ```text
-Quiero agregar feedback sonoro en la TV usando la API nativa window.speechSynthesis en tv.js.
-
-Requerimientos:
-1. Crear una función reproducirLocucion(numero, caja):
-   - Armar la frase: "Turno [numero], dirigirse a [caja]".
-   - Crear una instancia de SpeechSynthesisUtterance con el texto.
-   - Configurar el idioma en español ('es-ES' o 'es-AR').
-   - Ajustar la velocidad (rate = 0.9) y tono para una locución clara institucional.
-   - Antes de reproducir, cancelar cualquier audio en curso con window.speechSynthesis.cancel().
-   - Ejecutar window.speechSynthesis.speak().
-2. Debido a las políticas de los navegadores que bloquean el audio automático sin interacción previa, incluir en tv.html un botón flotante discreto #btn-audio ("Activar Audio") que al ser pulsado reproduzca un sonido de prueba corto o inicialice la síntesis de voz y luego se oculte.
-
-Escribí la implementación para tv.js y el botón en tv.html.
+En totem.js, conectemos el tótem al canal nativo de comunicación entre pantallas:
+1. Instanciar const canal = new BroadcastChannel('canal_turnero');
+2. Dentro de la función emitirTurno(), además de renderizar el ticket, enviar el mensaje al canal:
+   canal.postMessage({
+     accion: 'NUEVO_TURNO',
+     turno: { numero, tipo, servicio, prefijo, fecha, hora }
+   });
+3. Mantener el reloj digital del cabezal actualizado en vivo cada segundo.
 ```
 
-### Comprobar
-- Al pulsar "Activar Audio" una sola vez en la TV, queda habilitado el sintetizador.
-- Con cada nuevo turno llamado por el operador, la TV anuncia por voz el turno y la caja en español.
-- Si se llama rápido a dos turnos, el audio anterior se corta prolijamente para enunciar el nuevo.
+#### Comprobar
+- Al emitir un turno en `totem.html`, abrí la consola del navegador (`F12`) en otra pestaña y verificá que el evento `NUEVO_TURNO` llega con el objeto completo.
 
 ---
 
-## Prompt 5: Animación mecánica y ciclo de retiro en el tótem (`totem.js` y `style-totem.css`)
+### Paso 4: Panel del Operador y telemetría de 4 colas (`operador.html` y `operador.js`)
 
 ```text
-Para pulir la experiencia de autoservicio en el tótem físico (totem.html):
-
-Requerimientos:
-1. En style-totem.css, diseñar una animación CSS de corte e impresión mecánica (@keyframes print-ticket):
-   - El ticket debe simular que desciende y emerge desde la ranura de corte (transform: translateY).
-2. En totem.js:
-   - Al pulsar "Atención Prioritaria" o "Atención General", reiniciar la animación de salida para que cada nuevo ticket se imprima de forma fluida.
-   - Programar el botón #btn-nuevo-ticket ("Simular retiro del ticket") para reiniciar el estado de la boca del dispensador y dejarla lista para el próximo visitante.
-   - Mantener actualizado el reloj institucional en el cabezal del tótem cada segundo.
-
-Escribí los ajustes de animación para style-totem.css y la lógica en totem.js.
+Vamos a construir el panel de atención en operador.html y operador.js:
+1. La pantalla debe incluir:
+   - Selector de puesto (#select-caja: "Caja 1", "Caja 2", "Box 1", "Box 2").
+   - 4 tarjetas de telemetría para ver la cantidad en espera de cada cola: Prioritaria, Caja, Tarjetas y Asesoría.
+   - Botón destacado #btn-llamar ("Llamar Siguiente Turno").
+   - Recuadro del turno actualmente en atención.
+2. En operador.js, conectar a 'canal_turnero' y almacenar 4 arrays en memoria:
+   colaPrioritaria, colaCaja, colaTarjetas y colaAsesoria.
+3. Al recibir un mensaje con accion === 'NUEVO_TURNO', clasificar el turno en el array correspondiente y refrescar los 4 contadores en pantalla.
 ```
 
-### Comprobar
-- Cada vez que se emite un turno en el tótem, el ticket emerge con una animación que simula la salida de papel térmico de la ranura.
-- Al pulsar "Simular retiro del ticket", la ranura queda limpia y disponible para el siguiente usuario.
+#### Comprobar
+- Abrí `totem.html` y `operador.html` en dos ventanas contiguas.
+- Al pulsar botones en el tótem, los contadores respectivos de `operador.html` se incrementan al instante en tiempo real.
+
+---
+
+### Paso 5: Despacho con regla de prioridad absoluta y afinidad (`operador.js`)
+
+```text
+En operador.js, programemos el clic de #btn-llamar aplicando las reglas de negocio del banco:
+1. Regla 1 (Prioridad absoluta): Si colaPrioritaria tiene turnos pendientes, extraer siempre el primero con shift(), sin importar qué puesto esté llamando.
+2. Regla 2 (Afinidad de puesto): Si no hay prioritarios:
+   - "Caja 1" y "Caja 2" atienden colaCaja.
+   - "Box 1" atiende colaTarjetas.
+   - "Box 2" atiende colaAsesoria.
+   - Si la cola propia está vacía, atender turnos de cualquier otra cola disponible.
+3. Si todas las colas están vacías, advertir en pantalla que no hay clientes en espera.
+4. Mostrar en pantalla el turno extraído y actualizar los contadores.
+```
+
+#### Comprobar
+- Emití en el tótem un turno de Caja (`C-01`), luego uno de Tarjetas (`T-01`) y al final uno Prioritario (`P-01`).
+- Al presionar "Llamar Siguiente", el operador debe despachar obligatoriamente a `P-01` en primer lugar.
+
+---
+
+### Paso 6: Comunicación del llamado a la sala (`operador.js`)
+
+```text
+En operador.js, al despachar exitosamente un turno:
+1. Publicar el llamado al canal de comunicación:
+   canal.postMessage({
+     accion: 'TURNO_LLAMADO',
+     numero: turno.numero,
+     tipo: turno.tipo,
+     servicio: turno.servicio,
+     caja: puestoSeleccionado,
+     hora: new Date().toLocaleTimeString().substring(0, 5)
+   });
+2. Actualizar el panel de "Turno en Atención" con el número, el servicio y la hora.
+```
+
+#### Comprobar
+- Al llamar un turno en `operador.html`, verificá en consola o en una pestaña oyente que se recibe la acción `TURNO_LLAMADO` con el turno y el puesto asignado.
+
+---
+
+### Paso 7: Pantalla TV de sala - Render monumental (Hero) e Historial (`tv.html`, `style-tv.css`, `tv.js`)
+
+```text
+En tv.html, style-tv.css y tv.js:
+1. Diseñar un layout horizontal 16:9 con CSS Grid:
+   - Zona Principal (Hero monumental, 65% del ancho): muestra el turno convocado en tamaño gigante (#tv-numero), el nombre del servicio, el puesto de destino (#tv-destino) y el badge de categoría.
+   - Zona Lateral (Historial, 35% del ancho): lista con los últimos turnos llamados.
+2. En tv.js, escuchar mensajes con accion === 'TURNO_LLAMADO':
+   - Trasladar el turno previo al array historialLlamados (máximo 4 elementos).
+   - Renderizar el nuevo turno en la zona Hero.
+   - Agregar una clase CSS temporal 'animar-llamado' para producir un parpadeo/pulso visual cada vez que entra un nuevo turno.
+```
+
+#### Comprobar
+- Al presionar "Llamar Siguiente" en el operador, la pantalla de TV parpadea y actualiza el turno grande y su destino.
+- El llamado anterior se desplaza fluidamente al historial lateral.
+
+---
+
+### Paso 8: Síntesis de voz institucional en la TV (`tv.js` y `tv.html`)
+
+```text
+Agreguemos locución por voz en la pantalla de TV (tv.js):
+1. Crear la función vocalizarLlamado(numero, puesto):
+   - Frase a reproducir: "Turno [numero], dirigirse a [puesto]".
+   - Usar SpeechSynthesisUtterance con idioma español ('es-AR' o 'es-ES') y velocidad clara (rate = 0.9).
+   - Cancelar locuciones previas con window.speechSynthesis.cancel() y ejecutar speak().
+2. En tv.html, incluir un botón flotante discreto #btn-audio ("Activar Audio de Sala"). Al ser pulsado por primera vez, habilita la síntesis de voz del navegador (superando el bloqueo de autoplay) y se oculta.
+```
+
+#### Comprobar
+- Pulsá "Activar Audio de Sala" en la TV.
+- Al despachar un turno desde el operador, la TV pronuncia en español claro: *"Turno P-01, dirigirse a Caja 2"*.
+
+---
+
+### Paso 9 (Opcional): Simulador integrado multi-pantalla con halo perimetral (`demo.html`)
+
+```text
+Para demostraciones o presentaciones pedagógicas sin múltiples pestañas:
+1. Crear demo.html con un CSS Grid asimétrico (32% | 33% | 35%) conteniendo 3 iframes:
+   - Columna 1: totem.html
+   - Columna 2: operador.html
+   - Columna 3: tv.html
+2. Diseñar un sistema de iluminación perimetral activa (Glow):
+   - Cuando una pantalla ejecuta una acción, su borde perimetral se ilumina con un halo de color brillante (Azul para tótem, Verde para operador, Ámbar para TV).
+3. En demo.js, programar un guión automático de 7 pasos que simule el flujo completo de clientes, atención prioritaria y TV con un narrador superior en tiempo real.
+```
+
+#### Comprobar
+- Al abrir `demo.html` y pulsar "Iniciar Demostración", el narrador relata cada acción mientras el foco luminoso se desplaza secuencialmente entre el Tótem, el Operador y la TV.
